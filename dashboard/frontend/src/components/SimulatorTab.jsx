@@ -174,13 +174,12 @@ function SemicircleGauge({ predictedMU, typicalMU, percentDiff }) {
         style={{ backgroundColor: badgeColor }}
       >
         {percentDiff !== undefined
-          ? `${Number(percentDiff) >= 0 ? '+' : ''}${Number(percentDiff).toFixed(1)}% ${
-              isAbove
-                ? 'Above Typical'
-                : isBelow
-                ? 'Below Typical'
-                : 'At Typical Baseline'
-            }`
+          ? `${Number(percentDiff) >= 0 ? '+' : ''}${Number(percentDiff).toFixed(1)}% ${isAbove
+            ? 'Above Typical'
+            : isBelow
+              ? 'Below Typical'
+              : 'At Typical Baseline'
+          }`
           : '—'}
       </div>
 
@@ -361,10 +360,10 @@ export default function SimulatorTab({
       <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-lg font-bold text-gray-900">
-            What-if demand simulator
+            What-If Demand Simulator
           </h2>
           <p className="text-xs text-gray-600 mt-0.5 font-medium">
-            Scenario estimate from a model trained on historical weather. Not a live forecast.
+            Scenario estimates based on historical weather patterns.
           </p>
         </div>
 
@@ -375,48 +374,45 @@ export default function SimulatorTab({
           </span>
           <button
             onClick={() => applyPreset('typical')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-              activePreset === 'typical'
-                ? 'text-white'
-                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-            }`}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${activePreset === 'typical'
+              ? 'text-white'
+              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+              }`}
             style={
               activePreset === 'typical'
                 ? { backgroundColor: '#204110', borderColor: '#204110' }
                 : undefined
             }
           >
-            Typical day (50th pct)
+            Typical
           </button>
           <button
             onClick={() => applyPreset('heatwave')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-              activePreset === 'heatwave'
-                ? 'text-white'
-                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-            }`}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${activePreset === 'heatwave'
+              ? 'text-white'
+              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+              }`}
             style={
               activePreset === 'heatwave'
                 ? { backgroundColor: '#a50727', borderColor: '#a50727' }
                 : undefined
             }
           >
-            Heatwave (95th pct temp)
+            Heatwave
           </button>
           <button
             onClick={() => applyPreset('cool_cloudy')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-              activePreset === 'cool_cloudy'
-                ? 'text-white'
-                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-            }`}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${activePreset === 'cool_cloudy'
+              ? 'text-white'
+              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+              }`}
             style={
               activePreset === 'cool_cloudy'
                 ? { backgroundColor: '#375f25', borderColor: '#375f25' }
                 : undefined
             }
           >
-            Cool and cloudy (5th pct temp)
+            Cool & Cloudy
           </button>
         </div>
       </div>
@@ -439,11 +435,10 @@ export default function SimulatorTab({
                   <button
                     key={st}
                     onClick={() => onChangeSelectedState(st)}
-                    className={`py-1.5 px-3 rounded-lg text-xs font-semibold border text-center transition-colors ${
-                      active
-                        ? 'text-white'
-                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                    }`}
+                    className={`py-1.5 px-3 rounded-lg text-xs font-semibold border text-center transition-colors ${active
+                      ? 'text-white'
+                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                      }`}
                     style={
                       active
                         ? { backgroundColor: '#204110', borderColor: '#204110' }
@@ -500,11 +495,10 @@ export default function SimulatorTab({
               <div className="inline-flex rounded-lg border border-gray-300 overflow-hidden">
                 <button
                   onClick={() => setIsHoliday(0)}
-                  className={`px-3 py-1 font-semibold ${
-                    isHoliday === 0
-                      ? 'text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className={`px-3 py-1 font-semibold ${isHoliday === 0
+                    ? 'text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    }`}
                   style={
                     isHoliday === 0
                       ? { backgroundColor: '#204110' }
@@ -515,11 +509,10 @@ export default function SimulatorTab({
                 </button>
                 <button
                   onClick={() => setIsHoliday(1)}
-                  className={`px-3 py-1 font-semibold ${
-                    isHoliday === 1
-                      ? 'text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className={`px-3 py-1 font-semibold ${isHoliday === 1
+                    ? 'text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    }`}
                   style={
                     isHoliday === 1
                       ? { backgroundColor: '#a50727' }
@@ -798,15 +791,13 @@ export default function SimulatorTab({
                         }}
                       >
                         {simResult?.percent_difference !== undefined
-                          ? `${
-                              simResult.percent_difference >= 0 ? '+' : ''
-                            }${simResult.percent_difference.toFixed(2)}% (${
-                              simResult.predicted_MU - simResult.typical_MU >= 0
-                                ? '+'
-                                : ''
-                            }${(
-                              simResult.predicted_MU - simResult.typical_MU
-                            ).toFixed(2)} MU)`
+                          ? `${simResult.percent_difference >= 0 ? '+' : ''
+                          }${simResult.percent_difference.toFixed(2)}% (${simResult.predicted_MU - simResult.typical_MU >= 0
+                            ? '+'
+                            : ''
+                          }${(
+                            simResult.predicted_MU - simResult.typical_MU
+                          ).toFixed(2)} MU)`
                           : '—'}
                       </div>
                     </div>

@@ -6,6 +6,7 @@ export default function InsightsTab() {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentRecIndex, setCurrentRecIndex] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -31,6 +32,18 @@ export default function InsightsTab() {
       cancelled = true;
     };
   }, []);
+
+  const handlePrevRec = () => {
+    setCurrentRecIndex((prev) =>
+      prev === 0 ? recommendations.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextRec = () => {
+    setCurrentRecIndex((prev) =>
+      prev === recommendations.length - 1 ? 0 : prev + 1
+    );
+  };
 
   if (loading) {
     return (
@@ -61,51 +74,57 @@ export default function InsightsTab() {
     <div className="space-y-6">
       {/* 1. Temperature Tipping Point & Comfort Band Banner Card */}
       <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-gray-100">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-500">
-              Empirical Thermal Response Finding (2014–2024)
-            </span>
-            <h2 className="text-base font-bold text-gray-900 mt-0.5">
-              Non-Linear Temperature Tipping Points Across Indian State Grids
-            </h2>
+        <div className="pb-3 border-b border-gray-100">
+          <span className="text-xs font-bold uppercase tracking-wider text-gray-500">
+            Empirical Thermal Response Finding (2014–2024)
+          </span>
+          <h2 className="text-base font-bold text-gray-900 mt-0.5">
+            Non-Linear Temperature Tipping Points Across Indian State Grids
+          </h2>
+        </div>
+
+        <div className="mt-4 space-y-2.5 text-sm text-gray-700">
+          <div className="flex items-start gap-3">
+            <span
+              className="mt-0.5 w-2 h-2 rounded-full flex-shrink-0"
+              style={{ backgroundColor: '#749764' }}
+            />
+            <div>
+              <span className="font-semibold">Comfort Zone:</span> Demand remains stable between{' '}
+              <span className="font-bold" style={{ color: '#204110' }}>
+                {thresholds.comfort_zone_c?.[0]}–{thresholds.comfort_zone_c?.[1]}°C
+              </span>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 text-xs">
+          <div className="flex items-start gap-3">
             <span
-              className="px-2.5 py-1 rounded-lg font-semibold border"
-              style={{
-                backgroundColor: '#f4f8f2',
-                borderColor: '#749764',
-                color: '#204110',
-              }}
-            >
-              Comfort Minimum: {thresholds.comfort_zone_c?.[0]}–
-              {thresholds.comfort_zone_c?.[1]}°C
-            </span>
-            <span
-              className="px-2.5 py-1 rounded-lg font-semibold text-white"
+              className="mt-0.5 w-2 h-2 rounded-full flex-shrink-0"
               style={{ backgroundColor: '#a50727' }}
-            >
-              Cooling Surge Tipping Point: &gt;
-              {thresholds.sharp_cooling_rise_threshold_c}°C
-            </span>
+            />
+            <div>
+              <span className="font-semibold">Cooling Surge Threshold:</span> Sharp demand increase above{' '}
+              <span className="font-bold" style={{ color: '#a50727' }}>
+                {thresholds.sharp_cooling_rise_threshold_c}°C
+              </span>{' '}
+              due to air conditioning load
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3">
             <span
-              className="px-2.5 py-1 rounded-lg font-semibold border"
-              style={{
-                backgroundColor: '#ffffff',
-                borderColor: '#204110',
-                color: '#204110',
-              }}
-            >
-              Winter Heating (North): &lt;
-              {thresholds.winter_heating_rise_threshold_c}°C
-            </span>
+              className="mt-0.5 w-2 h-2 rounded-full flex-shrink-0"
+              style={{ backgroundColor: '#204110' }}
+            />
+            <div>
+              <span className="font-semibold">Winter Heating (Northern States):</span> Increased demand below{' '}
+              <span className="font-bold" style={{ color: '#204110' }}>
+                {thresholds.winter_heating_rise_threshold_c}°C
+              </span>{' '}
+              for space heating
+            </div>
           </div>
         </div>
-        <p className="text-xs sm:text-sm text-gray-700 mt-3 leading-relaxed">
-          {thresholds.explanation}
-        </p>
       </div>
 
       {/* 2. Per-State Consumption Pattern Cards (Peak Season, Trough, Sunday & Holiday Drops) */}
@@ -188,10 +207,10 @@ export default function InsightsTab() {
         {/* Card A: Which Weather Features Matter Most */}
         <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
           <h3 className="text-sm font-bold text-gray-900">
-            Which Weather Features Matter Most (Set A Permutation Importance)
+            Top Weather Features (Set A)
           </h3>
           <p className="text-xs text-gray-500 mt-0.5 mb-3">
-            Mean drop in out-of-sample Test R² when each weather feature is randomly permuted
+            Impact on Test R² when permuted
           </p>
 
           <div className="space-y-2 text-xs">
@@ -232,10 +251,10 @@ export default function InsightsTab() {
         {/* Card B: Which Indian States Are Most Weather-Sensitive */}
         <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm overflow-x-auto">
           <h3 className="text-sm font-bold text-gray-900">
-            Top 10 Most Weather-Sensitive Indian States
+            Most Weather-Sensitive States
           </h3>
           <p className="text-xs text-gray-500 mt-0.5 mb-3">
-            Ranked by out-of-sample Test R² using Feature Set A (Weather + Calendar only, zero demand lags)
+            Ranked by Set A Test R² (weather only)
           </p>
 
           <table className="w-full text-left border-collapse text-xs">
@@ -243,8 +262,8 @@ export default function InsightsTab() {
               <tr className="border-b border-gray-200 text-gray-500 uppercase text-[10px]">
                 <th className="py-2 pr-2">Rank &amp; State</th>
                 <th className="py-2 px-2 text-right">Mean Demand (MU)</th>
-                <th className="py-2 px-2 text-right">Set A Weather R²</th>
-                <th className="py-2 px-2 text-right">Set B Full R²</th>
+                <th className="py-2 px-2 text-right">Set A R²</th>
+                <th className="py-2 px-2 text-right">Set B R²</th>
                 <th className="py-2 pl-2 text-right">Set B MAPE</th>
               </tr>
             </thead>
@@ -276,90 +295,151 @@ export default function InsightsTab() {
         </div>
       </div>
 
-      {/* 4. Grid-Level Operational Recommendation Cards (Evidence + Metric + Action) */}
+      {/* 4. Grid-Level Operational Recommendation Carousel */}
       <div>
-        <div className="mb-3">
+        <div className="mb-4">
           <h2 className="text-base font-bold text-gray-900">
-            Evidence-Backed Grid-Level Recommendations (SLDCs, DISCOMs &amp; Grid-India)
+            Grid-Level Recommendations
           </h2>
           <p className="text-xs text-gray-500">
-            Every operational recommendation cites its quantitative finding and related metric from the dataset and trained models.
+            {recommendations.length} actionable recommendations
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {recommendations.map((rec) => (
-            <div
-              key={rec.id}
-              className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-2.5">
-                  <span
-                    className="text-[11px] font-bold px-2.5 py-0.5 rounded text-white"
-                    style={{ backgroundColor: '#204110' }}
-                  >
-                    Recommendation #{rec.id}
-                  </span>
-                  <span className="text-xs font-semibold text-gray-600">
-                    {rec.stakeholder}
+        {recommendations.length > 0 && (
+          <div className="relative px-16">
+            {/* Main Recommendation Card */}
+            <div className="bg-white border-2 border-gray-300 rounded-xl p-8 shadow-lg max-w-4xl mx-auto">
+              <div className="space-y-5">
+                {/* Header */}
+                <div className="flex items-center justify-between pb-4 border-b-2 border-gray-200">
+                  <div>
+                    <span
+                      className="text-xs font-bold px-3 py-1.5 rounded text-white"
+                      style={{ backgroundColor: '#204110' }}
+                    >
+                      #{recommendations[currentRecIndex].id}
+                    </span>
+                    <h3 className="text-xl font-bold text-gray-900 mt-3">
+                      {recommendations[currentRecIndex].title}
+                    </h3>
+                  </div>
+                  <span className="text-sm font-semibold text-gray-600 bg-gray-100 px-3 py-1.5 rounded-lg">
+                    {recommendations[currentRecIndex].stakeholder}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-gray-900">
-                  {rec.title}
-                </h3>
-
-                {/* Related Metric Citation Pill */}
+                {/* Key Metric */}
                 <div
-                  className="p-3 rounded-lg border text-xs"
+                  className="p-5 rounded-xl border-2 text-center"
                   style={{
                     backgroundColor: '#f8faf7',
-                    borderColor: '#a0bd85',
+                    borderColor: '#749764',
                   }}
                 >
                   <div
-                    className="font-bold uppercase text-[10px] tracking-wider"
-                    style={{ color: '#375f25' }}
-                  >
-                    Related Metric: {rec.metric_name}
-                  </div>
-                  <div
-                    className="font-bold text-sm mt-0.5"
+                    className="font-bold text-3xl mb-1"
                     style={{ color: '#204110' }}
                   >
-                    {rec.metric_value}
+                    {recommendations[currentRecIndex].metric_value}
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    {recommendations[currentRecIndex].metric_name}
                   </div>
                 </div>
 
-                {/* Evidence from the Data */}
-                <div className="text-xs text-gray-700 space-y-1">
-                  <div className="font-bold text-gray-900">
-                    Evidence from Data &amp; Models:
-                  </div>
-                  <p className="leading-relaxed">{rec.evidence}</p>
+                {/* Evidence - Bullet Points */}
+                <div className="bg-gray-50 rounded-lg p-5">
+                  <ul className="space-y-2.5 text-sm text-gray-700">
+                    {recommendations[currentRecIndex].evidence.split(/\.\s+/).filter(s => s.trim()).map((sentence, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <span className="text-lg" style={{ color: '#204110' }}>•</span>
+                        <span className="flex-1 leading-relaxed">{sentence.trim()}{sentence.trim().endsWith('.') ? '' : '.'}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
 
-              {/* Concrete Grid Action */}
-              <div
-                className="p-3.5 rounded-lg border text-xs leading-relaxed"
-                style={{
-                  backgroundColor: '#ffffff',
-                  borderColor: '#204110',
-                }}
-              >
+                {/* Action */}
                 <div
-                  className="font-bold mb-1"
-                  style={{ color: '#204110' }}
+                  className="p-5 rounded-xl border-2"
+                  style={{
+                    backgroundColor: '#ffffff',
+                    borderColor: '#204110',
+                  }}
                 >
-                  Grid-Level Operational Action:
+                  <div className="font-bold mb-3 text-base" style={{ color: '#204110' }}>
+                    → Recommended Action
+                  </div>
+                  <div className="text-sm text-gray-800 leading-relaxed">
+                    {recommendations[currentRecIndex].action}
+                  </div>
                 </div>
-                <div className="text-gray-800">{rec.action}</div>
               </div>
             </div>
-          ))}
-        </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={handlePrevRec}
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 shadow-lg flex items-center justify-center transition-all hover:bg-gray-50 hover:scale-110"
+              style={{ borderColor: '#204110' }}
+              aria-label="Previous recommendation"
+            >
+              <svg
+                className="w-6 h-6"
+                style={{ color: '#204110' }}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            <button
+              onClick={handleNextRec}
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 shadow-lg flex items-center justify-center transition-all hover:bg-gray-50 hover:scale-110"
+              style={{ borderColor: '#204110' }}
+              aria-label="Next recommendation"
+            >
+              <svg
+                className="w-6 h-6"
+                style={{ color: '#204110' }}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+
+            {/* Indicator Dots */}
+            <div className="flex items-center justify-center gap-2 mt-6">
+              {recommendations.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentRecIndex(idx)}
+                  className="w-2.5 h-2.5 rounded-full transition-all hover:scale-125"
+                  style={{
+                    backgroundColor:
+                      idx === currentRecIndex ? '#204110' : '#d1d5db',
+                  }}
+                  aria-label={`Go to recommendation ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

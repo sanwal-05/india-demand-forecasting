@@ -205,11 +205,10 @@ export default function StateExplorerTab({
                 <button
                   key={st}
                   onClick={() => onChangeSelectedState(st)}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-                    active
-                      ? 'text-white shadow-sm'
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                  }`}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${active
+                    ? 'text-white shadow-sm'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                    }`}
                   style={
                     active
                       ? { backgroundColor: '#204110', borderColor: '#204110' }
@@ -252,11 +251,10 @@ export default function StateExplorerTab({
                 <div className="inline-flex rounded-lg border border-gray-300 overflow-hidden text-xs">
                   <button
                     onClick={() => setCompareUnit('MU')}
-                    className={`px-2.5 py-1 font-semibold ${
-                      compareUnit === 'MU'
-                        ? 'text-white'
-                        : 'bg-white text-gray-700'
-                    }`}
+                    className={`px-2.5 py-1 font-semibold ${compareUnit === 'MU'
+                      ? 'text-white'
+                      : 'bg-white text-gray-700'
+                      }`}
                     style={
                       compareUnit === 'MU'
                         ? { backgroundColor: '#204110' }
@@ -267,11 +265,10 @@ export default function StateExplorerTab({
                   </button>
                   <button
                     onClick={() => setCompareUnit('index')}
-                    className={`px-2.5 py-1 font-semibold ${
-                      compareUnit === 'index'
-                        ? 'text-white'
-                        : 'bg-white text-gray-700'
-                    }`}
+                    className={`px-2.5 py-1 font-semibold ${compareUnit === 'index'
+                      ? 'text-white'
+                      : 'bg-white text-gray-700'
+                      }`}
                     style={
                       compareUnit === 'index'
                         ? { backgroundColor: '#204110' }
@@ -299,11 +296,10 @@ export default function StateExplorerTab({
                 <button
                   key={g.id}
                   onClick={() => setGranularity(g.id)}
-                  className={`px-3 py-1.5 font-semibold ${
-                    granularity === g.id
-                      ? 'text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className={`px-3 py-1.5 font-semibold ${granularity === g.id
+                    ? 'text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    }`}
                   style={
                     granularity === g.id
                       ? { backgroundColor: '#204110' }
@@ -388,31 +384,29 @@ export default function StateExplorerTab({
               <div>
                 <h2 className="text-base font-bold text-gray-900">
                   {compareMode
-                    ? `${selectedState} vs. ${compareState} — Electricity Demand Trend (${
-                        compareUnit === 'MU' ? 'MU' : 'Normalized Index'
-                      })`
-                    : `${selectedState} — Historical Electricity Demand Trend (MU)`}
+                    ? `${selectedState} vs. ${compareState} — Demand Trend`
+                    : `${selectedState} — Demand Trend`}
                 </h2>
                 <p className="text-xs text-gray-500">
-                  Drag the bottom zoom slider handles to zoom into any specific season or heatwave episode ({mergedTrendSeries.length.toLocaleString()} {granularity} points).
+                  Drag slider to zoom. {mergedTrendSeries.length.toLocaleString()} {granularity} points.
                 </p>
               </div>
 
-              {/* Explicit Color Legend */}
+              {/* Legend */}
               <div className="flex flex-wrap items-center gap-4 text-xs">
                 <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: '#204110' }}>
                   <span className="w-4 h-0.5 inline-block" style={{ backgroundColor: '#204110', height: '3px' }} />
-                  {selectedState} {compareMode ? `(${compareUnit})` : 'Actual Demand (MU)'}
+                  {selectedState}
                 </span>
                 {compareMode ? (
                   <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: '#e10531' }}>
                     <span className="w-4 h-0.5 inline-block" style={{ backgroundColor: '#e10531', height: '3px' }} />
-                    {compareState} ({compareUnit})
+                    {compareState}
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: '#a50727' }}>
                     <span className="w-4 h-0.5 inline-block" style={{ backgroundColor: '#e10531', height: '2px' }} />
-                    Trailing 365-Day Mean Baseline (MU)
+                    365-Day Mean
                   </span>
                 )}
               </div>
@@ -518,10 +512,10 @@ export default function StateExplorerTab({
             <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
               <div>
                 <h3 className="text-sm font-bold text-gray-900">
-                  1. Monthly Seasonal Pattern ({selectedState})
+                  1. Monthly Seasonal Pattern
                 </h3>
                 <p className="text-xs text-gray-500 mt-0.5">
-                  Average daily demand by calendar month (MU)
+                  Average demand by month
                 </p>
 
                 <div className="h-[250px] w-full mt-3">
@@ -567,11 +561,11 @@ export default function StateExplorerTab({
               <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-600">
                 <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: '#375f25' }}>
                   <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ backgroundColor: '#375f25' }} />
-                  Green = Moderate / Monsoon Trough
+                  Moderate
                 </span>
                 <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: '#a50727' }}>
                   <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ backgroundColor: '#a50727' }} />
-                  Red = Peak Season (&ge;1.04x)
+                  Peak
                 </span>
               </div>
             </div>
@@ -580,17 +574,10 @@ export default function StateExplorerTab({
             <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
               <div>
                 <h3 className="text-sm font-bold text-gray-900">
-                  2. Weekday vs. Sunday &amp; Holiday Pattern ({selectedState})
+                  2. Weekday vs. Sunday & Holiday
                 </h3>
                 <p className="text-xs text-gray-500 mt-0.5">
-                  Sunday Drop:{' '}
-                  <span className="font-semibold" style={{ color: '#204110' }}>
-                    {holidayInfo?.sunday_drop_pct ?? '—'}% ({holidayInfo?.sunday_drop_MU ?? '—'} MU)
-                  </span>{' '}
-                  · Holiday Drop:{' '}
-                  <span className="font-semibold" style={{ color: '#204110' }}>
-                    {holidayInfo?.holiday_drop_pct ?? '—'}%
-                  </span>
+                  Sunday: {holidayInfo?.sunday_drop_pct ?? '—'}% · Holiday: {holidayInfo?.holiday_drop_pct ?? '—'}%
                 </p>
 
                 <div className="h-[250px] w-full mt-3">
@@ -639,11 +626,11 @@ export default function StateExplorerTab({
                               key={entry.day_name}
                               fill={
                                 entry.day_name === 'Sun' ||
-                                entry.day_name === 'Holiday'
+                                  entry.day_name === 'Holiday'
                                   ? '#204110'
                                   : entry.is_weekend
-                                  ? '#749764'
-                                  : '#a50727'
+                                    ? '#749764'
+                                    : '#a50727'
                               }
                             />
                           );
@@ -657,11 +644,11 @@ export default function StateExplorerTab({
               <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-600">
                 <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: '#204110' }}>
                   <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ backgroundColor: '#204110' }} />
-                  Green = Sunday &amp; Holiday Load Drop
+                  Sun & Holiday
                 </span>
                 <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: '#a50727' }}>
                   <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ backgroundColor: '#a50727' }} />
-                  Red = Mon–Fri Working Load
+                  Weekday
                 </span>
               </div>
             </div>
@@ -670,13 +657,10 @@ export default function StateExplorerTab({
             <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
               <div>
                 <h3 className="text-sm font-bold text-gray-900">
-                  3. Temperature vs. Demand Curve &amp; Threshold
+                  3. Temperature vs. Demand Curve
                 </h3>
                 <p className="text-xs text-gray-500 mt-0.5">
-                  Comfort band 18–22°C · Sharp cooling rise above{' '}
-                  <span className="font-semibold" style={{ color: '#e10531' }}>
-                    {tempThresholds.sharp_cooling_rise_threshold_c}°C
-                  </span>
+                  Cooling surge above {tempThresholds.sharp_cooling_rise_threshold_c}°C
                 </p>
 
                 <div className="h-[250px] w-full mt-3">
@@ -772,7 +756,8 @@ export default function StateExplorerTab({
             </div>
           </div>
         </>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }

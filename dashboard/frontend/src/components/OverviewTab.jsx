@@ -225,32 +225,31 @@ export default function OverviewTab({
             className="mt-1 text-2xl font-bold"
             style={{ color: '#204110' }}
           >
-            {kpiStats.totalStates} States &amp; UTs
+            {kpiStats.totalStates}
           </div>
           <div className="mt-1 text-xs text-gray-600">
-            <span className="font-semibold text-gray-800">
-              {kpiStats.focusCount} Focus States
-            </span>{' '}
-            (full weather + lag pipeline) · {kpiStats.modeledCount} modeled
-            nationally
+            {kpiStats.focusCount} Focus · {kpiStats.modeledCount} Modeled
           </div>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
           <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-            Chronological Date Range
+            Date Range
           </div>
-          <div className="mt-1 text-xl font-bold text-gray-900">
-            2014-01-08 – 2024-04-27
+          <div
+            className="mt-1 text-xl font-bold"
+            style={{ color: '#204110' }}
+          >
+            2014 – 2024
           </div>
           <div className="mt-1 text-xs text-gray-600">
-            Train: ≤2021 · Val: 2022 · Test: {kpiStats.testSplit}
+            Train: ≤2021 · Val: 2022 · Test: 2023–24
           </div>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
           <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-            Best Forecasting Model
+            Best Model
           </div>
           <div
             className="mt-1 text-2xl font-bold"
@@ -259,28 +258,28 @@ export default function OverviewTab({
             {bestModelName || 'LightGBM'}
           </div>
           <div className="mt-1 text-xs text-gray-600">
-            Tuned via 5-fold TimeSeriesSplit CV on training data only
+            5-fold TimeSeriesSplit CV
           </div>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
           <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-            Avg Test R² (4 Focus States)
+            Avg Test R² (4 Focus)
           </div>
           <div
             className="mt-1 text-2xl font-bold"
             style={{ color: '#204110' }}
           >
-            {kpiStats.avgFocusR2 !== null
-              ? kpiStats.avgFocusR2.toFixed(3)
+            {kpiStats.avgFocusSetAR2 !== null
+              ? kpiStats.avgFocusSetAR2.toFixed(3)
               : '—'}{' '}
-            <span className="text-sm font-medium text-gray-600">(Set B)</span>
+            <span className="text-sm font-medium text-gray-600">(Set A)</span>
           </div>
           <div className="mt-1 text-xs text-gray-600">
-            Weather + Calendar only (Set A) avg R²:{' '}
+            Set B R²:{' '}
             <span className="font-semibold text-gray-800">
-              {kpiStats.avgFocusSetAR2 !== null
-                ? kpiStats.avgFocusSetAR2.toFixed(3)
+              {kpiStats.avgFocusR2 !== null
+                ? kpiStats.avgFocusR2.toFixed(3)
                 : '—'}
             </span>
           </div>
@@ -295,18 +294,17 @@ export default function OverviewTab({
             <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-gray-200">
               <div>
                 <h2 className="text-base font-bold text-gray-900">
-                  Interactive All-India Grid Map
+                  Interactive India Grid Map
                 </h2>
                 <p className="text-xs text-gray-600 mt-0.5">
-                  Hover any state for its metrics. Click any of the{' '}
+                  Click{' '}
                   <span
                     className="font-semibold"
                     style={{ color: '#204110' }}
                   >
-                    4 Focus States (bold dark-green outline)
+                    Focus States (bold outline)
                   </span>{' '}
-                  to open State Explorer, or click any other state for its
-                  summary.
+                  to explore details.
                 </p>
               </div>
 
@@ -321,13 +319,13 @@ export default function OverviewTab({
                   className="text-xs font-medium bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-gray-800 focus:outline-none focus:border-gray-500"
                 >
                   <option value="avg_demand">
-                    Average Demand (MU) — Green=Low, Red=High
+                    Average Demand (MU)
                   </option>
                   <option value="vs_typical">
-                    Demand vs Typical (%) — Green=Below, Red=Above
+                    Demand vs Typical (%)
                   </option>
                   <option value="model_r2">
-                    Model Test R² — Green=High Skill, Red=Low Skill
+                    Model Test R²
                   </option>
                 </select>
 
@@ -401,12 +399,10 @@ export default function OverviewTab({
               <div>
                 <div className="flex items-center justify-between text-xs font-semibold text-gray-700 mb-1">
                   <span style={{ color: '#204110' }}>
-                    ■ Green = Low Daily Demand ({mapPayload?.min_value ?? 1.5}{' '}
-                    MU)
+                    ■ Low Demand
                   </span>
                   <span style={{ color: '#6b0015' }}>
-                    ■ Red = High Daily Demand ({mapPayload?.max_value ?? 440}{' '}
-                    MU)
+                    ■ High Demand
                   </span>
                 </div>
                 <div className="grid grid-cols-10 h-3 rounded overflow-hidden border border-gray-200">
@@ -421,10 +417,10 @@ export default function OverviewTab({
               <div>
                 <div className="flex items-center justify-between text-xs font-semibold text-gray-700 mb-1">
                   <span style={{ color: '#204110' }}>
-                    ■ Green = Below Typical Month Demand (&lt; 0%)
+                    ■ Below Typical
                   </span>
                   <span style={{ color: '#6b0015' }}>
-                    ■ Red = Above Typical Month Demand (&gt; 0%)
+                    ■ Above Typical
                   </span>
                 </div>
                 <div className="grid grid-cols-10 h-3 rounded overflow-hidden border border-gray-200">
@@ -439,10 +435,10 @@ export default function OverviewTab({
               <div>
                 <div className="flex items-center justify-between text-xs font-semibold text-gray-700 mb-1">
                   <span style={{ color: '#6b0015' }}>
-                    ■ Red = Lower Model Skill (R² &lt; 0.85)
+                    ■ Lower R²
                   </span>
                   <span style={{ color: '#204110' }}>
-                    ■ Green = High Model Skill (R² ≥ 0.85 up to 0.983)
+                    ■ Higher R²
                   </span>
                 </div>
                 <div className="grid grid-cols-10 h-3 rounded overflow-hidden border border-gray-200">
@@ -463,7 +459,7 @@ export default function OverviewTab({
                     backgroundColor: '#749764',
                   }}
                 />
-                4 Focus States (Full Color + Bold #204110 Outline)
+                Focus States
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span
@@ -474,14 +470,14 @@ export default function OverviewTab({
                     opacity: 0.65,
                   }}
                 />
-                Other States (Muted + Grey Outline)
+                Other States
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span
                   className="inline-block w-3.5 h-3.5 rounded-sm border border-gray-300"
                   style={{ backgroundColor: NEUTRALS.noDataFill }}
                 />
-                Unmatched / No Data
+                No Data
               </span>
             </div>
 
@@ -547,20 +543,20 @@ export default function OverviewTab({
                       style={{
                         color:
                           clickedStateSummary.model_r2 !== null &&
-                          clickedStateSummary.model_r2 >= 0.85
+                            clickedStateSummary.model_r2 >= 0.85
                             ? '#204110'
                             : '#850014',
                       }}
                     >
                       {clickedStateSummary.model_r2 !== null &&
-                      clickedStateSummary.model_r2 !== undefined
+                        clickedStateSummary.model_r2 !== undefined
                         ? clickedStateSummary.model_r2.toFixed(3)
                         : 'No data'}
                     </div>
                     <div className="text-[11px] text-gray-500">
                       MAPE:{' '}
                       {clickedStateSummary.mape_pct !== null &&
-                      clickedStateSummary.mape_pct !== undefined
+                        clickedStateSummary.mape_pct !== undefined
                         ? `${clickedStateSummary.mape_pct.toFixed(2)}%`
                         : '—'}
                     </div>
@@ -570,10 +566,9 @@ export default function OverviewTab({
                     <div className="text-gray-500">Current Map Metric</div>
                     <div className="text-sm font-bold text-gray-900 mt-0.5">
                       {clickedStateMapInfo &&
-                      clickedStateMapInfo.value !== null
-                        ? `${clickedStateMapInfo.value} ${
-                            mapPayload?.unit || ''
-                          }`
+                        clickedStateMapInfo.value !== null
+                        ? `${clickedStateMapInfo.value} ${mapPayload?.unit || ''
+                        }`
                         : 'No data'}
                     </div>
                     <div className="text-[11px] text-gray-500">
@@ -619,67 +614,62 @@ export default function OverviewTab({
 
           {/* 4 Focus States Deep-Dive Directory Card */}
           <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h3 className="text-sm font-bold text-gray-900">
-                  Our 4 Focus States (Click to Open State Explorer)
-                </h3>
-                <p className="text-xs text-gray-500">
-                  Representing India&apos;s 4 distinct climate and load regimes
-                </p>
-              </div>
-              <span
-                className="text-[11px] font-semibold px-2 py-0.5 rounded text-white"
-                style={{ backgroundColor: '#204110' }}
-              >
-                Full Weather + Lag Models
-              </span>
+            <div className="mb-4">
+              <h3 className="text-sm font-bold text-gray-900">
+                4 Focus States
+              </h3>
+              <p className="text-xs text-gray-500">
+                Click to explore details
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-3">
               {kpiStats.focusList.map((st) => (
                 <button
                   key={st.state}
                   onClick={() => onOpenStateExplorer(st.state)}
-                  className="text-left p-3 rounded-lg border-2 transition-all hover:shadow-md"
+                  className="w-full text-left p-4 rounded-lg border-2 transition-all hover:shadow-md"
                   style={{
                     borderColor: '#204110',
                     backgroundColor: '#ffffff',
                   }}
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-3">
                     <span
-                      className="font-bold text-sm"
+                      className="font-bold text-base"
                       style={{ color: '#204110' }}
                     >
                       {st.state}
                     </span>
-                    <span className="text-[11px] font-semibold text-gray-600">
+                    <span className="text-xs font-semibold text-gray-600">
                       Explore →
                     </span>
                   </div>
-                  <div className="mt-2 grid grid-cols-2 gap-1 text-xs">
+                  <div className="grid grid-cols-3 gap-3 text-xs">
                     <div>
-                      <span className="text-gray-500 block text-[10px]">
-                        Avg / 365d Demand
+                      <span className="text-gray-500 block text-[10px] mb-1">
+                        Avg Demand
                       </span>
-                      <span className="font-semibold text-gray-900">
-                        {st.avg_demand_MU.toFixed(0)} /{' '}
-                        {st.recent_365d_mean_MU.toFixed(0)} MU
+                      <span className="font-semibold text-gray-900 text-sm">
+                        {st.avg_demand_MU.toFixed(0)} MU
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-500 block text-[10px]">
-                        Test R² (Set B / Set A)
+                      <span className="text-gray-500 block text-[10px] mb-1">
+                        Test R² (A / B)
                       </span>
-                      <span className="font-bold" style={{ color: '#204110' }}>
-                        {st.model_r2?.toFixed(3)} / {st.set_a_r2?.toFixed(3)}
+                      <span className="font-bold text-sm" style={{ color: '#204110' }}>
+                        {st.set_a_r2?.toFixed(3)} / {st.model_r2?.toFixed(3)}
                       </span>
                     </div>
-                  </div>
-                  <div className="mt-1.5 text-[11px] text-gray-600 flex justify-between border-t border-gray-100 pt-1">
-                    <span>Test MAPE: {st.mape_pct?.toFixed(2)}%</span>
-                    <span>MAE: {st.mae_MU?.toFixed(2)} MU</span>
+                    <div>
+                      <span className="text-gray-500 block text-[10px] mb-1">
+                        MAPE
+                      </span>
+                      <span className="font-semibold text-gray-900 text-sm">
+                        {st.mape_pct?.toFixed(2)}%
+                      </span>
+                    </div>
                   </div>
                 </button>
               ))}
@@ -687,55 +677,20 @@ export default function OverviewTab({
           </div>
 
           {/* Dataset vs GeoJSON State Name Mapping & Unmatched Audit Card */}
-          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm text-xs space-y-2.5">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm text-xs space-y-2">
             <div className="flex items-center justify-between border-b border-gray-100 pb-2">
               <h3 className="font-bold text-sm text-gray-900">
-                Map Boundary &amp; State Name Reconciliation
+                Map Coverage
               </h3>
               <span className="px-2 py-0.5 rounded bg-gray-100 text-gray-700 font-semibold text-[11px]">
                 {geoMatchAudit.matchedPolygons} /{' '}
-                {geoMatchAudit.totalGeoPolygons} Polygons Matched
+                {geoMatchAudit.totalGeoPolygons} Matched
               </span>
             </div>
 
             <div>
-              <div className="font-semibold text-gray-800 mb-1">
-                1. Mapped Polygons → Dataset Names:
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                <span
-                  className="px-2 py-0.5 rounded border text-[11px]"
-                  style={{
-                    borderColor: '#a0bd85',
-                    backgroundColor: '#f8faf7',
-                    color: '#204110',
-                  }}
-                >
-                  Polygon &ldquo;Ladakh&rdquo; + &ldquo;Jammu and Kashmir&rdquo;
-                  → Dataset &ldquo;Jammu and Kashmir&rdquo;
-                </span>
-              </div>
-            </div>
-
-            <div>
-              <div className="font-semibold text-gray-800 mb-1">
-                2. Small UTs / Island Territories Without Mainland Polygon
-                (Listed in All-States Table Below):
-              </div>
               <p className="text-gray-600 leading-relaxed">
-                Small Union Territories in <code>daily.csv</code> (
-                <span className="font-medium text-gray-800">
-                  {geoMatchAudit.datasetWithoutGeo.join(', ')}
-                </span>
-                ) do not have separate mainland polygons on this outline map,
-                and{' '}
-                <span className="font-medium text-gray-800">
-                  Andaman &amp; Nicobar Islands
-                </span>{' '}
-                / <span className="font-medium text-gray-800">Lakshadweep</span>{' '}
-                have no demand telemetry in the Zenodo POSOCO dataset. All 36
-                states &amp; UTs are included in the complete demand ranking
-                below.
+                J&K and Ladakh combined. Small UTs without mainland polygons shown in table below.
               </p>
             </div>
           </div>
@@ -751,15 +706,13 @@ export default function OverviewTab({
               States &amp; UTs
             </h2>
             <p className="text-xs text-gray-600 mt-0.5">
-              Compare electricity demand across every Indian state and Union
-              Territory (2014–2024). Click any bar or row to inspect that state
-              on the map or open our 4 Focus States in State Explorer.
+              Compare demand across all states and UTs.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             <label className="text-xs font-semibold text-gray-700">
-              Demand Metric:
+              Metric:
             </label>
             <select
               value={demandMetricField}
@@ -767,13 +720,13 @@ export default function OverviewTab({
               className="text-xs font-medium bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-gray-800"
             >
               <option value="recent_365d_mean_MU">
-                Recent 365-Day Mean Demand (MU/day)
+                Recent 365-Day Mean
               </option>
               <option value="avg_demand_MU">
-                10-Year Historical Average Demand (MU/day)
+                Historical Average
               </option>
               <option value="max_demand_MU">
-                Historical Peak Daily Demand (MU)
+                Historical Peak
               </option>
             </select>
           </div>
@@ -783,8 +736,7 @@ export default function OverviewTab({
         <div>
           <div className="flex flex-wrap items-center justify-between gap-2 mb-2 text-xs">
             <span className="font-semibold text-gray-700">
-              State-by-State Demand Ranking (MU/day) — Click any state bar to
-              select
+              Demand Ranking
             </span>
             <div className="flex items-center gap-4">
               <span
@@ -945,8 +897,8 @@ export default function OverviewTab({
                       st.is_focus
                         ? { backgroundColor: '#f8faf7' }
                         : clickedOtherState === st.state
-                        ? { backgroundColor: '#fef2f2' }
-                        : undefined
+                          ? { backgroundColor: '#fef2f2' }
+                          : undefined
                     }
                     onClick={() =>
                       handleSelectStateOnMap(st.state, Boolean(st.is_focus))
@@ -989,8 +941,8 @@ export default function OverviewTab({
                           st.model_r2 === null || st.model_r2 === undefined
                             ? '#6b7280'
                             : st.model_r2 >= 0.85
-                            ? '#204110'
-                            : '#850014',
+                              ? '#204110'
+                              : '#850014',
                       }}
                     >
                       {st.model_r2 !== null && st.model_r2 !== undefined

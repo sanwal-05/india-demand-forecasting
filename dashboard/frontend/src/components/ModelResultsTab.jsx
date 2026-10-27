@@ -131,11 +131,10 @@ export default function ModelResultsTab({
               <button
                 key={st}
                 onClick={() => onChangeSelectedState(st)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-                  active
-                    ? 'text-white shadow-sm'
-                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                }`}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${active
+                  ? 'text-white shadow-sm'
+                  : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                  }`}
                 style={
                   active
                     ? { backgroundColor: '#204110', borderColor: '#204110' }
@@ -152,34 +151,32 @@ export default function ModelResultsTab({
           <span className="font-semibold text-gray-600">Feature Set:</span>
           <div className="inline-flex rounded-lg border border-gray-300 overflow-hidden">
             <button
-              onClick={() => setFeatureSet('Set B')}
-              className={`px-3 py-1.5 font-semibold ${
-                featureSet === 'Set B'
-                  ? 'text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-50'
-              }`}
+              onClick={() => setFeatureSet('Set A')}
+              className={`px-3 py-1.5 font-semibold ${featureSet === 'Set A'
+                ? 'text-white'
+                : 'bg-white text-gray-700 hover:bg-gray-50'
+                }`}
               style={
-                featureSet === 'Set B'
+                featureSet === 'Set A'
                   ? { backgroundColor: '#204110' }
                   : undefined
               }
             >
-              Set B (Weather + Calendar + Lags 1d &amp; 7d)
+              Set A (Weather + Calendar)
             </button>
             <button
-              onClick={() => setFeatureSet('Set A')}
-              className={`px-3 py-1.5 font-semibold ${
-                featureSet === 'Set A'
-                  ? 'text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-50'
-              }`}
+              onClick={() => setFeatureSet('Set B')}
+              className={`px-3 py-1.5 font-semibold ${featureSet === 'Set B'
+                ? 'text-white'
+                : 'bg-white text-gray-700 hover:bg-gray-50'
+                }`}
               style={
-                featureSet === 'Set A'
+                featureSet === 'Set B'
                   ? { backgroundColor: '#204110' }
                   : undefined
               }
             >
-              Set A (Weather + Calendar Only)
+              Set B (Weather + Calendar + Lags)
             </button>
           </div>
         </div>
@@ -202,7 +199,7 @@ export default function ModelResultsTab({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Test MAE ({selectedState} · {featureSet})
+                Test MAE
               </div>
               <div
                 className="mt-1 text-2xl font-bold"
@@ -211,13 +208,13 @@ export default function ModelResultsTab({
                 {summary.mae_MU !== undefined ? `${summary.mae_MU} MU` : '—'}
               </div>
               <div className="mt-1 text-xs text-gray-600">
-                Mean Absolute Error on 2023–2024 Test Set ({summary.n_days || 483} days)
+                Mean Absolute Error
               </div>
             </div>
 
             <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Test RMSE ({selectedState} · {featureSet})
+                Test RMSE
               </div>
               <div
                 className="mt-1 text-2xl font-bold"
@@ -226,16 +223,13 @@ export default function ModelResultsTab({
                 {summary.rmse_MU !== undefined ? `${summary.rmse_MU} MU` : '—'}
               </div>
               <div className="mt-1 text-xs text-gray-600">
-                90th-pct error threshold:{' '}
-                <span className="font-semibold" style={{ color: '#a50727' }}>
-                  &ge;{errorThreshold90p} MU
-                </span>
+                Root Mean Square Error
               </div>
             </div>
 
             <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Test R² Score ({selectedState} · {featureSet})
+                Test R²
               </div>
               <div
                 className="mt-1 text-2xl font-bold"
@@ -246,13 +240,13 @@ export default function ModelResultsTab({
                 {summary.r2 !== undefined ? summary.r2.toFixed(4) : '—'}
               </div>
               <div className="mt-1 text-xs text-gray-600">
-                Best Model: <span className="font-semibold">{bestModelName}</span>
+                {bestModelName}
               </div>
             </div>
 
             <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Test MAPE ({selectedState} · {featureSet})
+                Test MAPE
               </div>
               <div
                 className="mt-1 text-2xl font-bold"
@@ -263,7 +257,7 @@ export default function ModelResultsTab({
                   : '—'}
               </div>
               <div className="mt-1 text-xs text-gray-600">
-                Top-10% Peak Alert Threshold: {summary.peak_threshold_90p_MU} MU
+                Mean Absolute % Error
               </div>
             </div>
           </div>
@@ -276,11 +270,11 @@ export default function ModelResultsTab({
                   {selectedState} — Test Set Actual vs. Predicted Electricity Demand (MU · {bestModelName} {featureSet})
                 </h2>
                 <p className="text-xs text-gray-500">
-                  Out-of-sample test period (2023-01-01 to 2024-04-27) · Days in the top 10% largest absolute errors (&ge;{errorThreshold90p} MU) are highlighted with dark-red markers.
+                  Test period 2023–2024. Red markers show largest errors (&ge;{errorThreshold90p} MU).
                 </p>
               </div>
 
-              {/* Explicit Legend */}
+              {/* Legend */}
               <div className="flex flex-wrap items-center gap-4 text-xs">
                 <span
                   className="inline-flex items-center gap-1.5 font-semibold"
@@ -290,7 +284,7 @@ export default function ModelResultsTab({
                     className="w-4 inline-block"
                     style={{ backgroundColor: '#204110', height: '3px' }}
                   />
-                  Actual Demand (Dark Green #204110)
+                  Actual
                 </span>
                 <span
                   className="inline-flex items-center gap-1.5 font-semibold"
@@ -300,7 +294,7 @@ export default function ModelResultsTab({
                     className="w-4 inline-block"
                     style={{ backgroundColor: '#e10531', height: '3px' }}
                   />
-                  Predicted Demand (Red #e10531)
+                  Predicted
                 </span>
                 <span
                   className="inline-flex items-center gap-1.5 font-semibold"
@@ -313,7 +307,7 @@ export default function ModelResultsTab({
                       borderColor: '#e10531',
                     }}
                   />
-                  Large Error Point (&ge;{errorThreshold90p} MU)
+                  Large Error
                 </span>
               </div>
             </div>
@@ -403,17 +397,17 @@ export default function ModelResultsTab({
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <h3 className="text-sm font-bold text-gray-900">
-                    Model Comparison Table — {selectedState} (Evaluated in MU)
+                    Model Comparison — {selectedState}
                   </h3>
                   <p className="text-xs text-gray-500">
-                    Green rows highlight the selected best model ({bestModelName}); red text indicates naive baseline errors.
+                    Green highlights the best model ({bestModelName}).
                   </p>
                 </div>
                 <span
                   className="text-[11px] font-semibold px-2.5 py-1 rounded text-white"
                   style={{ backgroundColor: '#204110' }}
                 >
-                  Winner: {bestModelName}
+                  Best: {bestModelName}
                 </span>
               </div>
 
@@ -445,19 +439,19 @@ export default function ModelResultsTab({
                         style={
                           isBestWinner
                             ? {
-                                backgroundColor: '#c8d9c2',
-                                fontWeight: 700,
-                                color: '#204110',
-                              }
+                              backgroundColor: '#c8d9c2',
+                              fontWeight: 700,
+                              color: '#204110',
+                            }
                             : isBestSetA
-                            ? {
+                              ? {
                                 backgroundColor: '#f4f8f2',
                                 fontWeight: 600,
                                 color: '#204110',
                               }
-                            : isBaseline
-                            ? { color: '#850014' }
-                            : undefined
+                              : isBaseline
+                                ? { color: '#850014' }
+                                : undefined
                         }
                       >
                         <td className="py-2 pr-2">
@@ -546,8 +540,8 @@ export default function ModelResultsTab({
                               idx < 3
                                 ? '#a50727'
                                 : idx < 6
-                                ? '#204110'
-                                : '#749764'
+                                  ? '#204110'
+                                  : '#749764'
                             }
                           />
                         ))}
