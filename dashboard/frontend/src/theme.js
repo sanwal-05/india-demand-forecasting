@@ -111,6 +111,7 @@ export function getMetricColor(metric, value, minVal = 0, maxVal = 500) {
  * GeoJSON NAME_1 -> Dataset state name mapping
  */
 export const GEOJSON_TO_DATASET_STATE = {
+  'Ladakh': 'Jammu and Kashmir',
   'Orissa': 'Odisha',
   'Uttaranchal': 'Uttarakhand',
   'Andaman and Nicobar': 'Andaman and Nicobar Islands',

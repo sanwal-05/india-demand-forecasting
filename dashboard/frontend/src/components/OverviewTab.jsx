@@ -1,14 +1,22 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { fetchMapData } from '../api';
 import indiaGeoJson from '../data/india_states.json';
 import {
   DEMAND_LOW_TO_HIGH_PALETTE,
   FOCUS_STATES,
-  GEOJSON_TO_DATASET_STATE,
-  GREEN_TOKENS,
+  getMetricColor,
   NEUTRALS,
   normalizeGeoStateName,
-  RED_TOKENS,
   SKILL_LOW_TO_HIGH_PALETTE,
 } from '../theme';
 import IndiaMapSVG from './IndiaMapSVG';
@@ -40,6 +48,12 @@ export default function OverviewTab({
   const [loadingMap, setLoadingMap] = useState(true);
   const [mapError, setMapError] = useState(null);
   const [clickedOtherState, setClickedOtherState] = useState(null);
+
+  // All-States Demand Section state
+  const [demandMetricField, setDemandMetricField] = useState(
+    'recent_365d_mean_MU'
+  );
+  const [stateSearch, setStateSearch] = useState('');
 
   // Fetch map data whenever metric, year, or month changes
   useEffect(() => {
@@ -125,26 +139,50 @@ export default function OverviewTab({
     };
   }, [statesMeta]);
 
+  // All states sorted by selected demand metric for the All-India Demand Overview section
+  const allStatesRanked = useMemo(() => {
+    const list = [...(statesMeta?.states || [])].filter(
+      (s) => s[demandMetricField] !== null && s[demandMetricField] !== undefined
+    );
+    list.sort(
+      (a, b) => Number(b[demandMetricField]) - Number(a[demandMetricField])
+    );
+    return list.map((s, idx) => ({
+      ...s,
+      rank: idx + 1,
+      displayDemand: Number(s[demandMetricField]),
+    }));
+  }, [statesMeta, demandMetricField]);
+
+  const filteredStatesTable = useMemo(() => {
+    const q = stateSearch.trim().toLowerCase();
+    if (!q) return allStatesRanked;
+    return allStatesRanked.filter((s) => s.state.toLowerCase().includes(q));
+  }, [allStatesRanked, stateSearch]);
+
   // Compute GeoJSON vs Dataset state matching audit dynamically
   const geoMatchAudit = useMemo(() => {
-    const datasetNames = new Set((statesMeta?.states || []).map((s) => s.state));
-    const geoRawNames = indiaGeoJson.features.map(
-      (f) => f.properties?.NAME_1 || ''
+    const datasetNames = new Set(
+      (statesMeta?.states || []).map((s) => s.state)
     );
+    const geoFeatures = indiaGeoJson.features || [];
     const normalizedGeoSet = new Set(
-      geoRawNames.map((n) => normalizeGeoStateName(n))
+      geoFeatures.map(
+        (f) =>
+          f.properties?.STATE ||
+          normalizeGeoStateName(f.properties?.NAME_1 || '')
+      )
     );
 
-    // GeoJSON polygons that have no dataset match
     const geoWithoutDataset = [];
-    for (const raw of geoRawNames) {
-      const norm = normalizeGeoStateName(raw);
+    for (const f of geoFeatures) {
+      const raw = f.properties?.NAME_1 || '';
+      const norm = f.properties?.STATE || normalizeGeoStateName(raw);
       if (!datasetNames.has(norm)) {
         geoWithoutDataset.push({ rawGeoName: raw, normalizedName: norm });
       }
     }
 
-    // Dataset states that have no dedicated polygon in this GeoJSON
     const datasetWithoutGeo = [];
     for (const dName of datasetNames) {
       if (!normalizedGeoSet.has(dName)) {
@@ -152,19 +190,13 @@ export default function OverviewTab({
       }
     }
 
-    // States in dataset that have demand data but no Model R² (when metric === 'model_r2')
-    const missingMetricStates = (mapPayload?.states || [])
-      .filter((s) => s.value === null || s.value === undefined)
-      .map((s) => s.state);
-
     return {
-      totalGeoPolygons: geoRawNames.length,
-      matchedPolygons: geoRawNames.length - geoWithoutDataset.length,
+      totalGeoPolygons: geoFeatures.length,
+      matchedPolygons: geoFeatures.length - geoWithoutDataset.length,
       geoWithoutDataset,
       datasetWithoutGeo,
-      missingMetricStates,
     };
-  }, [statesMeta, mapPayload]);
+  }, [statesMeta]);
 
   const handleSelectStateOnMap = (stateName, isFocus) => {
     if (isFocus) {
@@ -193,13 +225,14 @@ export default function OverviewTab({
             className="mt-1 text-2xl font-bold"
             style={{ color: '#204110' }}
           >
-            {kpiStats.totalStates} States & UTs
+            {kpiStats.totalStates} States &amp; UTs
           </div>
           <div className="mt-1 text-xs text-gray-600">
             <span className="font-semibold text-gray-800">
               {kpiStats.focusCount} Focus States
             </span>{' '}
-            (full weather + lag pipeline) · {kpiStats.modeledCount} modeled nationally
+            (full weather + lag pipeline) · {kpiStats.modeledCount} modeled
+            nationally
           </div>
         </div>
 
@@ -265,7 +298,15 @@ export default function OverviewTab({
                   Interactive All-India Grid Map
                 </h2>
                 <p className="text-xs text-gray-600 mt-0.5">
-                  Click any of the <span className="font-semibold" style={{ color: '#204110' }}>4 Focus States (bold dark-green outline)</span> to open its State Explorer, or click any other state for its summary.
+                  Hover any state for its metrics. Click any of the{' '}
+                  <span
+                    className="font-semibold"
+                    style={{ color: '#204110' }}
+                  >
+                    4 Focus States (bold dark-green outline)
+                  </span>{' '}
+                  to open State Explorer, or click any other state for its
+                  summary.
                 </p>
               </div>
 
@@ -360,10 +401,12 @@ export default function OverviewTab({
               <div>
                 <div className="flex items-center justify-between text-xs font-semibold text-gray-700 mb-1">
                   <span style={{ color: '#204110' }}>
-                    ■ Green = Low Daily Demand ({mapPayload?.min_value ?? 1.5} MU)
+                    ■ Green = Low Daily Demand ({mapPayload?.min_value ?? 1.5}{' '}
+                    MU)
                   </span>
                   <span style={{ color: '#6b0015' }}>
-                    ■ Red = High Daily Demand ({mapPayload?.max_value ?? 440} MU)
+                    ■ Red = High Daily Demand ({mapPayload?.max_value ?? 440}{' '}
+                    MU)
                   </span>
                 </div>
                 <div className="grid grid-cols-10 h-3 rounded overflow-hidden border border-gray-200">
@@ -426,12 +469,12 @@ export default function OverviewTab({
                 <span
                   className="inline-block w-3.5 h-3.5 rounded-sm border"
                   style={{
-                    borderColor: '#d1d5db',
+                    borderColor: '#6b7280',
                     backgroundColor: '#c8d9c2',
-                    opacity: 0.6,
+                    opacity: 0.65,
                   }}
                 />
-                Other States (Muted + Thin Grey Outline)
+                Other States (Muted + Grey Outline)
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span
@@ -444,14 +487,15 @@ export default function OverviewTab({
 
             {/* Required Map Boundary Disclaimer */}
             <p className="text-[11px] text-gray-500 italic pt-1 border-t border-gray-100">
-              Note: J&amp;K and Ladakh are combined in this dataset and map boundaries are illustrative.
+              Note: J&amp;K and Ladakh are combined in this dataset and map
+              boundaries are illustrative.
             </p>
           </div>
         </div>
 
         {/* Right 5 Cols: Focus States Cards + Clicked Non-Focus State Card + GeoJSON Mapping Audit */}
         <div className="lg:col-span-5 space-y-5">
-          {/* Selected Non-Focus State Summary Card (Appears when user clicks a non-focus state on the map) */}
+          {/* Selected Non-Focus State Summary Card */}
           {clickedOtherState && (
             <div className="bg-white border-2 border-gray-300 rounded-xl p-4 shadow-sm">
               <div className="flex items-start justify-between gap-2">
@@ -487,10 +531,12 @@ export default function OverviewTab({
                   <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-200">
                     <div className="text-gray-500">Recent 365-Day Mean</div>
                     <div className="text-sm font-bold text-gray-900 mt-0.5">
-                      {clickedStateSummary.recent_365d_mean_MU.toFixed(1)} MU/day
+                      {clickedStateSummary.recent_365d_mean_MU.toFixed(1)}{' '}
+                      MU/day
                     </div>
                     <div className="text-[11px] text-gray-500">
-                      {clickedStateSummary.n_days.toLocaleString()} daily records
+                      {clickedStateSummary.n_days.toLocaleString()} daily
+                      records
                     </div>
                   </div>
 
@@ -523,8 +569,11 @@ export default function OverviewTab({
                   <div className="p-2.5 rounded-lg bg-gray-50 border border-gray-200">
                     <div className="text-gray-500">Current Map Metric</div>
                     <div className="text-sm font-bold text-gray-900 mt-0.5">
-                      {clickedStateMapInfo && clickedStateMapInfo.value !== null
-                        ? `${clickedStateMapInfo.value} ${mapPayload?.unit || ''}`
+                      {clickedStateMapInfo &&
+                      clickedStateMapInfo.value !== null
+                        ? `${clickedStateMapInfo.value} ${
+                            mapPayload?.unit || ''
+                          }`
                         : 'No data'}
                     </div>
                     <div className="text-[11px] text-gray-500">
@@ -549,34 +598,20 @@ export default function OverviewTab({
                   color: '#204110',
                 }}
               >
-                <strong>Note:</strong> Detailed weather-coupled analysis, model comparisons, and interactive What-If simulations cover our 4 focus states (
-                <button
-                  onClick={() => onOpenStateExplorer('Delhi')}
-                  className="underline font-semibold mr-1"
-                >
-                  Delhi
-                </button>
-                ,
-                <button
-                  onClick={() => onOpenStateExplorer('Maharashtra')}
-                  className="underline font-semibold mx-1"
-                >
-                  Maharashtra
-                </button>
-                ,
-                <button
-                  onClick={() => onOpenStateExplorer('Kerala')}
-                  className="underline font-semibold mx-1"
-                >
-                  Kerala
-                </button>
-                , and
-                <button
-                  onClick={() => onOpenStateExplorer('Uttar Pradesh')}
-                  className="underline font-semibold ml-1"
-                >
-                  Uttar Pradesh
-                </button>
+                <strong>Note:</strong> Full weather-coupled pattern charts,
+                model comparisons, and What-If simulations are available for our
+                4 focus states (
+                {FOCUS_STATES.map((fs, i) => (
+                  <React.Fragment key={fs}>
+                    {i > 0 && ', '}
+                    <button
+                      onClick={() => onOpenStateExplorer(fs)}
+                      className="underline font-semibold"
+                    >
+                      {fs}
+                    </button>
+                  </React.Fragment>
+                ))}
                 ).
               </div>
             </div>
@@ -637,10 +672,7 @@ export default function OverviewTab({
                       <span className="text-gray-500 block text-[10px]">
                         Test R² (Set B / Set A)
                       </span>
-                      <span
-                        className="font-bold"
-                        style={{ color: '#204110' }}
-                      >
+                      <span className="font-bold" style={{ color: '#204110' }}>
                         {st.model_r2?.toFixed(3)} / {st.set_a_r2?.toFixed(3)}
                       </span>
                     </div>
@@ -658,67 +690,331 @@ export default function OverviewTab({
           <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm text-xs space-y-2.5">
             <div className="flex items-center justify-between border-b border-gray-100 pb-2">
               <h3 className="font-bold text-sm text-gray-900">
-                GeoJSON Boundary &amp; State Name Reconciliation
+                Map Boundary &amp; State Name Reconciliation
               </h3>
               <span className="px-2 py-0.5 rounded bg-gray-100 text-gray-700 font-semibold text-[11px]">
-                {geoMatchAudit.matchedPolygons} / {geoMatchAudit.totalGeoPolygons} Polygons Matched
+                {geoMatchAudit.matchedPolygons} /{' '}
+                {geoMatchAudit.totalGeoPolygons} Polygons Matched
               </span>
             </div>
 
             <div>
               <div className="font-semibold text-gray-800 mb-1">
-                1. Mapped Legacy GeoJSON State Names → Dataset Names:
+                1. Mapped Polygons → Dataset Names:
               </div>
               <div className="flex flex-wrap gap-1.5">
-                {Object.entries(GEOJSON_TO_DATASET_STATE)
-                  .filter(([k]) => k !== 'NCT of Delhi' && k !== 'Andaman and Nicobar')
-                  .map(([geoName, dsName]) => (
-                    <span
-                      key={geoName}
-                      className="px-2 py-0.5 rounded border text-[11px]"
-                      style={{
-                        borderColor: '#a0bd85',
-                        backgroundColor: '#f8faf7',
-                        color: '#204110',
-                      }}
-                    >
-                      GeoJSON &ldquo;{geoName}&rdquo; → Dataset &ldquo;{dsName}&rdquo;
-                    </span>
-                  ))}
+                <span
+                  className="px-2 py-0.5 rounded border text-[11px]"
+                  style={{
+                    borderColor: '#a0bd85',
+                    backgroundColor: '#f8faf7',
+                    color: '#204110',
+                  }}
+                >
+                  Polygon &ldquo;Ladakh&rdquo; + &ldquo;Jammu and Kashmir&rdquo;
+                  → Dataset &ldquo;Jammu and Kashmir&rdquo;
+                </span>
               </div>
             </div>
 
             <div>
               <div className="font-semibold text-gray-800 mb-1">
-                2. Unmatched States / Territories (Shown in Neutral Grey &ldquo;No data&rdquo;):
+                2. Small UTs / Island Territories Without Mainland Polygon
+                (Listed in All-States Table Below):
               </div>
-              <ul className="list-disc list-inside space-y-1 text-gray-600">
-                {geoMatchAudit.geoWithoutDataset.map((item) => (
-                  <li key={item.rawGeoName}>
-                    <span className="font-semibold text-gray-800">
-                      {item.normalizedName}
-                    </span>{' '}
-                    (GeoJSON: <code>{item.rawGeoName}</code>) — 100% missing in Zenodo POSOCO demand file; rendered in neutral grey.
-                  </li>
-                ))}
-                {geoMatchAudit.datasetWithoutGeo.map((dsName) => (
-                  <li key={dsName}>
-                    <span className="font-semibold text-gray-800">{dsName}</span>{' '}
-                    — present in dataset (<code>daily.csv</code>), combined within pre-2014{' '}
-                    <span className="font-medium">Andhra Pradesh</span> polygon in this GeoJSON.
-                  </li>
-                ))}
-                {metric === 'model_r2' &&
-                  geoMatchAudit.missingMetricStates.length > 0 && (
-                    <li>
-                      <span className="font-semibold text-gray-800">
-                        {geoMatchAudit.missingMetricStates.join(', ')}
-                      </span>{' '}
-                      — present in <code>daily.csv</code> demand history, but excluded from post-2023 Test R² rollout due to incomplete weather/test coverage.
-                    </li>
-                  )}
-              </ul>
+              <p className="text-gray-600 leading-relaxed">
+                Small Union Territories in <code>daily.csv</code> (
+                <span className="font-medium text-gray-800">
+                  {geoMatchAudit.datasetWithoutGeo.join(', ')}
+                </span>
+                ) do not have separate mainland polygons on this outline map,
+                and{' '}
+                <span className="font-medium text-gray-800">
+                  Andaman &amp; Nicobar Islands
+                </span>{' '}
+                / <span className="font-medium text-gray-800">Lakshadweep</span>{' '}
+                have no demand telemetry in the Zenodo POSOCO dataset. All 36
+                states &amp; UTs are included in the complete demand ranking
+                below.
+              </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. ALL-INDIA ELECTRICITY DEMAND OVERVIEW (ALL 36 STATES & UTs) */}
+      <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-gray-200">
+          <div>
+            <h2 className="text-base font-bold text-gray-900">
+              All-India Daily Electricity Demand — All {allStatesRanked.length}{' '}
+              States &amp; UTs
+            </h2>
+            <p className="text-xs text-gray-600 mt-0.5">
+              Compare electricity demand across every Indian state and Union
+              Territory (2014–2024). Click any bar or row to inspect that state
+              on the map or open our 4 Focus States in State Explorer.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="text-xs font-semibold text-gray-700">
+              Demand Metric:
+            </label>
+            <select
+              value={demandMetricField}
+              onChange={(e) => setDemandMetricField(e.target.value)}
+              className="text-xs font-medium bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-gray-800"
+            >
+              <option value="recent_365d_mean_MU">
+                Recent 365-Day Mean Demand (MU/day)
+              </option>
+              <option value="avg_demand_MU">
+                10-Year Historical Average Demand (MU/day)
+              </option>
+              <option value="max_demand_MU">
+                Historical Peak Daily Demand (MU)
+              </option>
+            </select>
+          </div>
+        </div>
+
+        {/* All-States Demand Bar Chart */}
+        <div>
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-2 text-xs">
+            <span className="font-semibold text-gray-700">
+              State-by-State Demand Ranking (MU/day) — Click any state bar to
+              select
+            </span>
+            <div className="flex items-center gap-4">
+              <span
+                className="inline-flex items-center gap-1.5 font-semibold"
+                style={{ color: '#204110' }}
+              >
+                <span
+                  className="w-3 h-3 rounded-sm inline-block"
+                  style={{ backgroundColor: '#204110' }}
+                />
+                Green = Lower Demand (MU)
+              </span>
+              <span
+                className="inline-flex items-center gap-1.5 font-semibold"
+                style={{ color: '#6b0015' }}
+              >
+                <span
+                  className="w-3 h-3 rounded-sm inline-block"
+                  style={{ backgroundColor: '#6b0015' }}
+                />
+                Red = Higher Demand (MU)
+              </span>
+            </div>
+          </div>
+
+          <div className="h-[340px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={allStatesRanked}
+                margin={{ top: 10, right: 16, left: 8, bottom: 78 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis
+                  dataKey="state"
+                  interval={0}
+                  angle={-42}
+                  textAnchor="end"
+                  height={82}
+                  tick={({ x, y, payload }) => {
+                    const isFoc = FOCUS_STATES.includes(payload.value);
+                    return (
+                      <text
+                        x={x}
+                        y={y + 4}
+                        textAnchor="end"
+                        transform={`rotate(-42, ${x}, ${y + 4})`}
+                        fontSize={isFoc ? 11 : 10}
+                        fontWeight={isFoc ? 800 : 500}
+                        fill={isFoc ? '#204110' : '#374151'}
+                      >
+                        {isFoc ? `${payload.value} ★` : payload.value}
+                      </text>
+                    );
+                  }}
+                />
+                <YAxis
+                  tick={{ fontSize: 11, fill: '#4b5563' }}
+                  label={{
+                    value: 'Demand (MU / day)',
+                    angle: -90,
+                    position: 'insideLeft',
+                    style: { fontSize: 11, fill: '#374151' },
+                  }}
+                />
+                <Tooltip
+                  formatter={(val) => [`${Number(val).toFixed(1)} MU/day`, 'Demand']}
+                  labelFormatter={(label) =>
+                    FOCUS_STATES.includes(label)
+                      ? `${label} ★ (Focus State)`
+                      : label
+                  }
+                  contentStyle={{
+                    backgroundColor: '#ffffff',
+                    borderColor: '#d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                  }}
+                />
+                <Bar
+                  dataKey="displayDemand"
+                  radius={[4, 4, 0, 0]}
+                  isAnimationActive={false}
+                  className="cursor-pointer"
+                  onClick={(barData) => {
+                    if (!barData?.state) return;
+                    handleSelectStateOnMap(barData.state, Boolean(barData.is_focus));
+                  }}
+                >
+                  {allStatesRanked.map((entry) => {
+                    const maxD = allStatesRanked[0]?.displayDemand || 560;
+                    const minD =
+                      allStatesRanked[allStatesRanked.length - 1]
+                        ?.displayDemand || 1;
+                    const fillHex = getMetricColor(
+                      'avg_demand',
+                      entry.displayDemand,
+                      minD,
+                      maxD
+                    );
+                    return (
+                      <Cell
+                        key={entry.state}
+                        fill={fillHex}
+                        stroke={entry.is_focus ? '#204110' : 'none'}
+                        strokeWidth={entry.is_focus ? 2 : 0}
+                      />
+                    );
+                  })}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Searchable Table of All 36 States & UTs */}
+        <div className="pt-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500">
+              All {allStatesRanked.length} States &amp; UTs Demand Directory
+            </h3>
+            <input
+              type="text"
+              value={stateSearch}
+              onChange={(e) => setStateSearch(e.target.value)}
+              placeholder="Filter state name (e.g., Gujarat, Tamil Nadu)..."
+              className="text-xs border border-gray-300 rounded-lg px-3 py-1.5 w-64 focus:outline-none focus:border-gray-500"
+            />
+          </div>
+
+          <div className="max-h-[340px] overflow-y-auto border border-gray-200 rounded-lg">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead className="bg-gray-50 sticky top-0 border-b border-gray-200 text-gray-600 uppercase text-[10px]">
+                <tr>
+                  <th className="py-2.5 px-3 font-bold">Rank</th>
+                  <th className="py-2.5 px-3 font-bold">State / UT</th>
+                  <th className="py-2.5 px-3 font-bold">Role</th>
+                  <th className="py-2.5 px-3 font-bold text-right">
+                    Recent 365d Mean (MU)
+                  </th>
+                  <th className="py-2.5 px-3 font-bold text-right">
+                    10-Yr Avg (MU)
+                  </th>
+                  <th className="py-2.5 px-3 font-bold text-right">
+                    Min – Max (MU)
+                  </th>
+                  <th className="py-2.5 px-3 font-bold text-right">
+                    Model Test R²
+                  </th>
+                  <th className="py-2.5 px-3 font-bold text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {filteredStatesTable.map((st) => (
+                  <tr
+                    key={st.state}
+                    className="hover:bg-gray-50 transition-colors cursor-pointer"
+                    style={
+                      st.is_focus
+                        ? { backgroundColor: '#f8faf7' }
+                        : clickedOtherState === st.state
+                        ? { backgroundColor: '#fef2f2' }
+                        : undefined
+                    }
+                    onClick={() =>
+                      handleSelectStateOnMap(st.state, Boolean(st.is_focus))
+                    }
+                  >
+                    <td className="py-2 px-3 font-semibold text-gray-500">
+                      #{st.rank}
+                    </td>
+                    <td className="py-2 px-3 font-bold text-gray-900">
+                      {st.state} {st.is_focus && '★'}
+                    </td>
+                    <td className="py-2 px-3">
+                      {st.is_focus ? (
+                        <span
+                          className="px-2 py-0.5 rounded text-[10px] font-semibold text-white"
+                          style={{ backgroundColor: '#204110' }}
+                        >
+                          Focus State
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-600">
+                          National Grid
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-2 px-3 text-right font-bold text-gray-900">
+                      {st.recent_365d_mean_MU.toFixed(1)} MU
+                    </td>
+                    <td className="py-2 px-3 text-right font-medium text-gray-700">
+                      {st.avg_demand_MU.toFixed(1)} MU
+                    </td>
+                    <td className="py-2 px-3 text-right text-gray-500">
+                      {st.min_demand_MU.toFixed(1)} –{' '}
+                      {st.max_demand_MU.toFixed(1)} MU
+                    </td>
+                    <td
+                      className="py-2 px-3 text-right font-semibold"
+                      style={{
+                        color:
+                          st.model_r2 === null || st.model_r2 === undefined
+                            ? '#6b7280'
+                            : st.model_r2 >= 0.85
+                            ? '#204110'
+                            : '#850014',
+                      }}
+                    >
+                      {st.model_r2 !== null && st.model_r2 !== undefined
+                        ? st.model_r2.toFixed(3)
+                        : '—'}
+                    </td>
+                    <td className="py-2 px-3 text-right">
+                      {st.is_focus ? (
+                        <span
+                          className="font-semibold underline"
+                          style={{ color: '#204110' }}
+                        >
+                          Explore →
+                        </span>
+                      ) : (
+                        <span className="text-gray-600 font-medium underline">
+                          Select on Map
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
