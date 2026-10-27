@@ -1,0 +1,289 @@
+{
+  "target_column": "demand_index",
+  "target_definition": "demand_index = demand / trailing 365-day mean (shifted by 1 day so it uses past data only)",
+  "inverse_transform": "predicted_MU = predicted_demand_index * level_mu",
+  "feature_order": [
+    "day_of_week",
+    "is_weekend",
+    "month",
+    "day_of_year",
+    "is_holiday",
+    "covid_flag",
+    "temp_mean_c",
+    "temp_min_c",
+    "temp_max_c",
+    "cooling_degree_days",
+    "dewpoint_mean_c",
+    "solar_mean_mj",
+    "cloud_mean",
+    "wind_speed_mean",
+    "temp_roll7_mean",
+    "temp_roll30_mean",
+    "dewpoint_roll7_mean",
+    "dewpoint_roll30_mean",
+    "solar_roll7_mean",
+    "solar_roll30_mean",
+    "cloud_roll7_mean",
+    "cloud_roll30_mean"
+  ],
+  "features_set_a": [
+    "day_of_week",
+    "is_weekend",
+    "month",
+    "day_of_year",
+    "is_holiday",
+    "covid_flag",
+    "temp_mean_c",
+    "temp_min_c",
+    "temp_max_c",
+    "cooling_degree_days",
+    "dewpoint_mean_c",
+    "solar_mean_mj",
+    "cloud_mean",
+    "wind_speed_mean",
+    "temp_roll7_mean",
+    "temp_roll30_mean",
+    "dewpoint_roll7_mean",
+    "dewpoint_roll30_mean",
+    "solar_roll7_mean",
+    "solar_roll30_mean",
+    "cloud_roll7_mean",
+    "cloud_roll30_mean"
+  ],
+  "features_set_b": [
+    "day_of_week",
+    "is_weekend",
+    "month",
+    "day_of_year",
+    "is_holiday",
+    "covid_flag",
+    "temp_mean_c",
+    "temp_min_c",
+    "temp_max_c",
+    "cooling_degree_days",
+    "dewpoint_mean_c",
+    "solar_mean_mj",
+    "cloud_mean",
+    "wind_speed_mean",
+    "temp_roll7_mean",
+    "temp_roll30_mean",
+    "dewpoint_roll7_mean",
+    "dewpoint_roll30_mean",
+    "solar_roll7_mean",
+    "solar_roll30_mean",
+    "cloud_roll7_mean",
+    "cloud_roll30_mean",
+    "demand_index_lag_1",
+    "demand_index_lag_7"
+  ],
+  "states": {
+    "Delhi": {
+      "model_file": "models/Delhi_setA.joblib",
+      "model_name": "LightGBM",
+      "feature_set": "Set A (Weather+Cal)",
+      "feature_order": [
+        "day_of_week",
+        "is_weekend",
+        "month",
+        "day_of_year",
+        "is_holiday",
+        "covid_flag",
+        "temp_mean_c",
+        "temp_min_c",
+        "temp_max_c",
+        "cooling_degree_days",
+        "dewpoint_mean_c",
+        "solar_mean_mj",
+        "cloud_mean",
+        "wind_speed_mean",
+        "temp_roll7_mean",
+        "temp_roll30_mean",
+        "dewpoint_roll7_mean",
+        "dewpoint_roll30_mean",
+        "solar_roll7_mean",
+        "solar_roll30_mean",
+        "cloud_roll7_mean",
+        "cloud_roll30_mean"
+      ],
+      "target_definition": "demand_index = demand / trailing 365-day mean (shifted by 1 day so it uses past data only)",
+      "conversion_to_mu_formula": "predicted_MU = predicted_demand_index * level_mu",
+      "level_mu": 97.0589,
+      "level_date_range": {
+        "start": "2023-04-29",
+        "end": "2024-04-27",
+        "n_days": 365
+      },
+      "training_date_range": {
+        "start": "2014-01-08",
+        "end": "2021-12-31",
+        "n_days": 2915
+      },
+      "validation_date_range": {
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "n_days": 365
+      },
+      "test_date_range": {
+        "start": "2023-01-01",
+        "end": "2024-04-27",
+        "n_days": 483
+      }
+    },
+    "Maharashtra": {
+      "model_file": "models/Maharashtra_setA.joblib",
+      "model_name": "LightGBM",
+      "feature_set": "Set A (Weather+Cal)",
+      "feature_order": [
+        "day_of_week",
+        "is_weekend",
+        "month",
+        "day_of_year",
+        "is_holiday",
+        "covid_flag",
+        "temp_mean_c",
+        "temp_min_c",
+        "temp_max_c",
+        "cooling_degree_days",
+        "dewpoint_mean_c",
+        "solar_mean_mj",
+        "cloud_mean",
+        "wind_speed_mean",
+        "temp_roll7_mean",
+        "temp_roll30_mean",
+        "dewpoint_roll7_mean",
+        "dewpoint_roll30_mean",
+        "solar_roll7_mean",
+        "solar_roll30_mean",
+        "cloud_roll7_mean",
+        "cloud_roll30_mean"
+      ],
+      "target_definition": "demand_index = demand / trailing 365-day mean (shifted by 1 day so it uses past data only)",
+      "conversion_to_mu_formula": "predicted_MU = predicted_demand_index * level_mu",
+      "level_mu": 561.337,
+      "level_date_range": {
+        "start": "2023-04-29",
+        "end": "2024-04-27",
+        "n_days": 365
+      },
+      "training_date_range": {
+        "start": "2014-01-08",
+        "end": "2021-12-31",
+        "n_days": 2915
+      },
+      "validation_date_range": {
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "n_days": 365
+      },
+      "test_date_range": {
+        "start": "2023-01-01",
+        "end": "2024-04-27",
+        "n_days": 483
+      }
+    },
+    "Kerala": {
+      "model_file": "models/Kerala_setA.joblib",
+      "model_name": "LightGBM",
+      "feature_set": "Set A (Weather+Cal)",
+      "feature_order": [
+        "day_of_week",
+        "is_weekend",
+        "month",
+        "day_of_year",
+        "is_holiday",
+        "covid_flag",
+        "temp_mean_c",
+        "temp_min_c",
+        "temp_max_c",
+        "cooling_degree_days",
+        "dewpoint_mean_c",
+        "solar_mean_mj",
+        "cloud_mean",
+        "wind_speed_mean",
+        "temp_roll7_mean",
+        "temp_roll30_mean",
+        "dewpoint_roll7_mean",
+        "dewpoint_roll30_mean",
+        "solar_roll7_mean",
+        "solar_roll30_mean",
+        "cloud_roll7_mean",
+        "cloud_roll30_mean"
+      ],
+      "target_definition": "demand_index = demand / trailing 365-day mean (shifted by 1 day so it uses past data only)",
+      "conversion_to_mu_formula": "predicted_MU = predicted_demand_index * level_mu",
+      "level_mu": 85.437,
+      "level_date_range": {
+        "start": "2023-04-29",
+        "end": "2024-04-27",
+        "n_days": 365
+      },
+      "training_date_range": {
+        "start": "2014-01-08",
+        "end": "2021-12-31",
+        "n_days": 2915
+      },
+      "validation_date_range": {
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "n_days": 365
+      },
+      "test_date_range": {
+        "start": "2023-01-01",
+        "end": "2024-04-27",
+        "n_days": 483
+      }
+    },
+    "Uttar Pradesh": {
+      "model_file": "models/Uttar_Pradesh_setA.joblib",
+      "model_name": "LightGBM",
+      "feature_set": "Set A (Weather+Cal)",
+      "feature_order": [
+        "day_of_week",
+        "is_weekend",
+        "month",
+        "day_of_year",
+        "is_holiday",
+        "covid_flag",
+        "temp_mean_c",
+        "temp_min_c",
+        "temp_max_c",
+        "cooling_degree_days",
+        "dewpoint_mean_c",
+        "solar_mean_mj",
+        "cloud_mean",
+        "wind_speed_mean",
+        "temp_roll7_mean",
+        "temp_roll30_mean",
+        "dewpoint_roll7_mean",
+        "dewpoint_roll30_mean",
+        "solar_roll7_mean",
+        "solar_roll30_mean",
+        "cloud_roll7_mean",
+        "cloud_roll30_mean"
+      ],
+      "target_definition": "demand_index = demand / trailing 365-day mean (shifted by 1 day so it uses past data only)",
+      "conversion_to_mu_formula": "predicted_MU = predicted_demand_index * level_mu",
+      "level_mu": 408.014,
+      "level_date_range": {
+        "start": "2023-04-29",
+        "end": "2024-04-27",
+        "n_days": 365
+      },
+      "training_date_range": {
+        "start": "2014-01-08",
+        "end": "2021-12-31",
+        "n_days": 2915
+      },
+      "validation_date_range": {
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "n_days": 365
+      },
+      "test_date_range": {
+        "start": "2023-01-01",
+        "end": "2024-04-27",
+        "n_days": 483
+      }
+    }
+  }
+}

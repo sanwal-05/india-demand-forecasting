@@ -245,10 +245,16 @@ india-demand-forecasting/
 ├── data/
 │   ├── raw/                         # Downloaded Zenodo CSVs (git-ignored)
 │   └── processed/
-│       └── predictions.csv          # Exported 2022–2024 validation & test predictions (MU)
+│       ├── daily.csv                # Daily demand_MU for all 34 states + weather for 4 focus states
+│       ├── predictions.csv          # Test-period actual vs. predicted MU (Set A & Set B) for 4 focus states
+│       └── climatology.csv          # Per-state & month median Set A features + 5th/50th/95th temp percentiles
 └── models/
-    ├── best_model.joblib            # Exported LightGBM models (Set A & Set B) + metadata
-    ├── metrics.json                 # Complete evaluation metrics across models & 32 states
+    ├── Delhi_setA.joblib            # Trained Feature Set A model for Delhi
+    ├── Maharashtra_setA.joblib      # Trained Feature Set A model for Maharashtra
+    ├── Kerala_setA.joblib           # Trained Feature Set A model for Kerala
+    ├── Uttar_Pradesh_setA.joblib    # Trained Feature Set A model for Uttar Pradesh
+    ├── feature_config.json          # Exact feature order, target definition, level_mu & split dates per state
+    ├── metrics.json                 # Per-state model comparison tables, best models & 32-state R²
     └── insights.json                # Quantitative consumption insights & grid recommendations
 ```
 
@@ -256,12 +262,12 @@ india-demand-forecasting/
 
 ## 9. Phase 2 Plan: Interactive Grid Forecasting Dashboard (React + FastAPI)
 
-All Phase 1 artifacts (`models/best_model.joblib`, `data/processed/predictions.csv`, `models/metrics.json`, `models/insights.json`) are pre-packaged to power **Phase 2**:
+All Phase 1 artifacts (`models/<state>_setA.joblib`, `models/feature_config.json`, `data/processed/daily.csv`, `data/processed/predictions.csv`, `data/processed/climatology.csv`, `models/metrics.json`, `models/insights.json`) are pre-packaged to power **Phase 2**:
 1. **FastAPI Backend (`backend/`)**:
    - `/api/states` & `/api/metrics`: Serve state-wise evaluation metrics (`MAE`, `RMSE`, $R^2$, `MAPE`) and seasonal insights from `metrics.json` and `insights.json`.
-   - `/api/predictions/{state}`: Serve historical actual vs. predicted demand trajectories (`Set A` and `Set B`) and Top-10% peak alert flags from `predictions.csv`.
-   - `/api/simulate`: Load `models/best_model.joblib` to run interactive "What-If Heatwave & Holiday" simulations (e.g., *"What happens to Delhi's demand if maximum temperature increases by `+4°C` for 7 consecutive days?"*).
+   - `/api/daily/{state}` & `/api/predictions/{state}`: Serve historical demand/weather series from `daily.csv` and test-period actual vs. predicted demand trajectories (`Set A` and `Set B`) from `predictions.csv`.
+   - `/api/simulate`: Load `models/<state>_setA.joblib`, `models/feature_config.json`, and baseline monthly medians/percentiles from `data/processed/climatology.csv` to run interactive "What-If Heatwave & Holiday" simulations (converting predicted `demand_index` back to `MU` using each state's trailing 365-day `level_mu`).
 2. **React Frontend (`frontend/`)**:
    - Interactive India state selector with KPI cards (`Test R²`, `MAPE`, `Peak Threshold MU`, `Temperature Tipping Point`).
    - Actual vs. Predicted time-series viewer with high-demand peak alert badges.
-   - Live Heatwave Slider (`Δ°C`, humidity, holiday toggle) showing real-time demand surge predictions in `MU`.
+   - Live Heatwave Slider (`Δ°C` bounded by 5th–95th monthly percentiles from `climatology.csv`, humidity, holiday toggle) showing real-time demand surge predictions in `MU`.

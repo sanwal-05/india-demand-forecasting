@@ -156,7 +156,7 @@
     {
       "id": 4,
       "title": "Dual-Horizon Model Deployment (Set A for Seasonal Planning, Set B for Day-Ahead Dispatch)",
-      "finding": "LightGBM Set A (weather + calendar only) explains 94.1% of variance in Delhi and 87.3% in Kerala; Set B (adding 1d and 7d demand lags) achieves 1.54%-2.81% day-ahead MAPE.",
+      "finding": "LightGBM Set A (weather + calendar only) explains 94.1% of variance in Delhi and 88.3% in Kerala; Set B (adding 1d and 7d demand lags) achieves 1.54%-2.81% day-ahead MAPE.",
       "action": "Use Set A with 15-90 day weather ensembles for fuel/contract planning, and Set B in SLDC control rooms for day-ahead (t+1) dispatch."
     }
   ]

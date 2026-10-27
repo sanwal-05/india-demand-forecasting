@@ -2,3 +2,7 @@
 data/raw/
 .ipynb_checkpoints/
 __pycache__/
+.pytest_cache/
+dashboard/frontend/node_modules/
+dashboard/frontend/dist/
+.DS_Store
