@@ -1,0 +1,163 @@
+{
+  "temperature_thresholds": {
+    "comfort_zone_c": [
+      18.0,
+      22.0
+    ],
+    "sharp_cooling_rise_threshold_c": 24.5,
+    "winter_heating_rise_threshold_c": 15.0,
+    "explanation": "Demand is minimized in the 18-22\u00b0C comfort band, rises steeply above 24-25\u00b0C across all states due to fans/AC/pumping (+2.5% to +3.6% per \u00b0C in northern grids), and rises below 15\u00b0C in northern states (Delhi, Uttar Pradesh) due to winter water/space heating."
+  },
+  "state_consumption_patterns": [
+    {
+      "State": "Delhi",
+      "Peak Month": "Jun",
+      "Peak Month Index": 1.357,
+      "Peak Month Mean (MU)": 115.0,
+      "Trough Month": "Nov",
+      "Sunday Drop (MU)": -6.5,
+      "Sunday Drop (%)": -7.5,
+      "Holiday Drop (%)": -8.8
+    },
+    {
+      "State": "Maharashtra",
+      "Peak Month": "Apr",
+      "Peak Month Index": 1.124,
+      "Peak Month Mean (MU)": 491.7,
+      "Trough Month": "Jul",
+      "Sunday Drop (MU)": -16.6,
+      "Sunday Drop (%)": -3.69,
+      "Holiday Drop (%)": -2.9
+    },
+    {
+      "State": "Kerala",
+      "Peak Month": "Mar",
+      "Peak Month Index": 1.14,
+      "Peak Month Mean (MU)": 78.0,
+      "Trough Month": "Jul",
+      "Sunday Drop (MU)": -5.7,
+      "Sunday Drop (%)": -8.03,
+      "Holiday Drop (%)": -2.14
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Peak Month": "Jun",
+      "Peak Month Index": 1.237,
+      "Peak Month Mean (MU)": 384.0,
+      "Trough Month": "Nov",
+      "Sunday Drop (MU)": -5.2,
+      "Sunday Drop (%)": -1.62,
+      "Holiday Drop (%)": -1.49
+    }
+  ],
+  "top_weather_features_set_a": {
+    "temp_max_c": 0.182,
+    "temp_mean_c": 0.1799,
+    "temp_roll7_mean": 0.1058,
+    "temp_min_c": 0.0564,
+    "temp_roll30_mean": 0.0495,
+    "cooling_degree_days": 0.0315,
+    "solar_roll7_mean": 0.0245,
+    "solar_roll30_mean": 0.0198,
+    "dewpoint_roll30_mean": 0.016,
+    "dewpoint_mean_c": 0.0139
+  },
+  "most_weather_sensitive_states_top10": [
+    {
+      "State / UT": "Delhi",
+      "Mean Test Demand (MU)": 91.7557,
+      "Set A (Weather+Cal) R\u00b2": 0.9415,
+      "Set B (Best Pipeline) R\u00b2": 0.983,
+      "Set B MAPE (%)": 2.4724
+    },
+    {
+      "State / UT": "Punjab",
+      "Mean Test Demand (MU)": 181.9439,
+      "Set A (Weather+Cal) R\u00b2": 0.9166,
+      "Set B (Best Pipeline) R\u00b2": 0.9741,
+      "Set B MAPE (%)": 4.0047
+    },
+    {
+      "State / UT": "Chandigarh",
+      "Mean Test Demand (MU)": 4.66,
+      "Set A (Weather+Cal) R\u00b2": 0.9076,
+      "Set B (Best Pipeline) R\u00b2": 0.9661,
+      "Set B MAPE (%)": 3.8494
+    },
+    {
+      "State / UT": "Haryana",
+      "Mean Test Demand (MU)": 166.0914,
+      "Set A (Weather+Cal) R\u00b2": 0.882,
+      "Set B (Best Pipeline) R\u00b2": 0.9647,
+      "Set B MAPE (%)": 3.4231
+    },
+    {
+      "State / UT": "Kerala",
+      "Mean Test Demand (MU)": 84.964,
+      "Set A (Weather+Cal) R\u00b2": 0.8725,
+      "Set B (Best Pipeline) R\u00b2": 0.9564,
+      "Set B MAPE (%)": 1.5828
+    },
+    {
+      "State / UT": "West Bengal",
+      "Mean Test Demand (MU)": 174.7019,
+      "Set A (Weather+Cal) R\u00b2": 0.8414,
+      "Set B (Best Pipeline) R\u00b2": 0.9491,
+      "Set B MAPE (%)": 3.138
+    },
+    {
+      "State / UT": "Assam",
+      "Mean Test Demand (MU)": 32.1905,
+      "Set A (Weather+Cal) R\u00b2": 0.8171,
+      "Set B (Best Pipeline) R\u00b2": 0.95,
+      "Set B MAPE (%)": 3.5605
+    },
+    {
+      "State / UT": "Uttar Pradesh",
+      "Mean Test Demand (MU)": 390.5379,
+      "Set A (Weather+Cal) R\u00b2": 0.7589,
+      "Set B (Best Pipeline) R\u00b2": 0.965,
+      "Set B MAPE (%)": 2.8069
+    },
+    {
+      "State / UT": "Tamil Nadu",
+      "Mean Test Demand (MU)": 345.5758,
+      "Set A (Weather+Cal) R\u00b2": 0.7082,
+      "Set B (Best Pipeline) R\u00b2": 0.9292,
+      "Set B MAPE (%)": 2.3848
+    },
+    {
+      "State / UT": "Puducherry",
+      "Mean Test Demand (MU)": 9.4106,
+      "Set A (Weather+Cal) R\u00b2": 0.6692,
+      "Set B (Best Pipeline) R\u00b2": 0.8566,
+      "Set B MAPE (%)": 2.8088
+    }
+  ],
+  "grid_recommendations": [
+    {
+      "id": 1,
+      "title": "Two-Tier Heatwave Reserve & Day-Ahead Procurement Protocol",
+      "finding": "Demand surges sharply above 24-25\u00b0C (+3.5%/\u00b0C in Delhi, +2.9%/\u00b0C in UP) and 7-day rolling mean temperature is a top-3 weather predictor due to multi-day thermal buildup.",
+      "action": "Northern SLDCs and DISCOMs should trigger Tier-1 cooling dispatch at T_mean > 25\u00b0C and Tier-2 bilateral/peaker reserve procurement 48h ahead when 7-day rolling mean temperature exceeds 30\u00b0C."
+    },
+    {
+      "id": 2,
+      "title": "Inter-Regional Monsoon Power Banking & Maintenance Scheduling",
+      "finding": "Maharashtra and Kerala peak in April and drop 12-14% during July-August southwest monsoon rains, whereas Delhi and UP peak in June-August.",
+      "action": "Expand Western-to-Northern grid power banking during June-September and schedule coal/nuclear maintenance in July-August for Western/Southern grids and November-February for Northern grids."
+    },
+    {
+      "id": 3,
+      "title": "Automated Sunday & State-Holiday Baseload Ramp-Down and Storage Charging",
+      "finding": "Sundays reduce demand by 7.5% (-6.8 MU) in Delhi, 8.0% (-5.7 MU) in Kerala, and 3.7% (-16.8 MU) in Maharashtra; official state holidays reduce demand by up to 8.8%.",
+      "action": "Pre-schedule thermal unit turndown to technical minimum and route midday solar into pumped-hydro/battery storage on Sundays and state holidays instead of curtailing renewables."
+    },
+    {
+      "id": 4,
+      "title": "Dual-Horizon Model Deployment (Set A for Seasonal Planning, Set B for Day-Ahead Dispatch)",
+      "finding": "LightGBM Set A (weather + calendar only) explains 94.1% of variance in Delhi and 87.3% in Kerala; Set B (adding 1d and 7d demand lags) achieves 1.54%-2.81% day-ahead MAPE.",
+      "action": "Use Set A with 15-90 day weather ensembles for fuel/contract planning, and Set B in SLDC control rooms for day-ahead (t+1) dispatch."
+    }
+  ]
+}

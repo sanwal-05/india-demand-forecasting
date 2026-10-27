@@ -1,0 +1,1027 @@
+{
+  "best_model_name": "LightGBM (LGBMRegressor)",
+  "target_unit": "MU (Million Units = GWh)",
+  "splits": {
+    "train": "2014-01-08 to 2021-12-31",
+    "validation": "2022-01-01 to 2022-12-31",
+    "test": "2023-01-01 to 2024-04-27"
+  },
+  "focus_states_comparison": [
+    {
+      "State": "Delhi",
+      "Model": "Baseline: Training Mean",
+      "Feature Set": "Baseline",
+      "Val R\u00b2": 0.0339,
+      "Val RMSE (MU)": 26.297,
+      "MAE (MU)": 22.5306,
+      "RMSE (MU)": 25.5106,
+      "R\u00b2": -0.1409,
+      "MAPE (%)": 25.7183
+    },
+    {
+      "State": "Delhi",
+      "Model": "Baseline: Same Weekday Last Week",
+      "Feature Set": "Baseline",
+      "Val R\u00b2": 0.7789,
+      "Val RMSE (MU)": 12.5795,
+      "MAE (MU)": 8.4112,
+      "RMSE (MU)": 11.6902,
+      "R\u00b2": 0.7604,
+      "MAPE (%)": 8.7815
+    },
+    {
+      "State": "Delhi",
+      "Model": "Linear Regression",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.8595,
+      "Val RMSE (MU)": 10.0287,
+      "MAE (MU)": 7.3224,
+      "RMSE (MU)": 9.0262,
+      "R\u00b2": 0.8572,
+      "MAPE (%)": 8.3469
+    },
+    {
+      "State": "Delhi",
+      "Model": "Ridge Regression",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.8588,
+      "Val RMSE (MU)": 10.0534,
+      "MAE (MU)": 7.3276,
+      "RMSE (MU)": 9.0191,
+      "R\u00b2": 0.8574,
+      "MAPE (%)": 8.3414
+    },
+    {
+      "State": "Delhi",
+      "Model": "Random Forest",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.9311,
+      "Val RMSE (MU)": 7.023,
+      "MAE (MU)": 4.5722,
+      "RMSE (MU)": 6.1858,
+      "R\u00b2": 0.9329,
+      "MAPE (%)": 4.8007
+    },
+    {
+      "State": "Delhi",
+      "Model": "LightGBM",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.9469,
+      "Val RMSE (MU)": 6.164,
+      "MAE (MU)": 4.4749,
+      "RMSE (MU)": 5.7781,
+      "R\u00b2": 0.9415,
+      "MAPE (%)": 4.8178
+    },
+    {
+      "State": "Delhi",
+      "Model": "MLP (Neural Net)",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.9507,
+      "Val RMSE (MU)": 5.9379,
+      "MAE (MU)": 4.3821,
+      "RMSE (MU)": 5.7695,
+      "R\u00b2": 0.9416,
+      "MAPE (%)": 4.7394
+    },
+    {
+      "State": "Delhi",
+      "Model": "Linear Regression",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9821,
+      "Val RMSE (MU)": 3.5819,
+      "MAE (MU)": 2.4681,
+      "RMSE (MU)": 3.3934,
+      "R\u00b2": 0.9798,
+      "MAPE (%)": 2.7846
+    },
+    {
+      "State": "Delhi",
+      "Model": "Ridge Regression",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.982,
+      "Val RMSE (MU)": 3.5853,
+      "MAE (MU)": 2.4659,
+      "RMSE (MU)": 3.3931,
+      "R\u00b2": 0.9798,
+      "MAPE (%)": 2.7805
+    },
+    {
+      "State": "Delhi",
+      "Model": "Random Forest",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9811,
+      "Val RMSE (MU)": 3.6793,
+      "MAE (MU)": 2.4168,
+      "RMSE (MU)": 3.4019,
+      "R\u00b2": 0.9797,
+      "MAPE (%)": 2.6281
+    },
+    {
+      "State": "Delhi",
+      "Model": "LightGBM",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9855,
+      "Val RMSE (MU)": 3.2215,
+      "MAE (MU)": 2.2544,
+      "RMSE (MU)": 3.1113,
+      "R\u00b2": 0.983,
+      "MAPE (%)": 2.4724
+    },
+    {
+      "State": "Delhi",
+      "Model": "MLP (Neural Net)",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9753,
+      "Val RMSE (MU)": 4.2089,
+      "MAE (MU)": 3.5076,
+      "RMSE (MU)": 4.6235,
+      "R\u00b2": 0.9625,
+      "MAPE (%)": 3.9699
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "Baseline: Training Mean",
+      "Feature Set": "Baseline",
+      "Val R\u00b2": -0.264,
+      "Val RMSE (MU)": 64.9527,
+      "MAE (MU)": 34.979,
+      "RMSE (MU)": 42.0584,
+      "R\u00b2": -0.0153,
+      "MAPE (%)": 6.2422
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "Baseline: Same Weekday Last Week",
+      "Feature Set": "Baseline",
+      "Val R\u00b2": 0.7484,
+      "Val RMSE (MU)": 28.9804,
+      "MAE (MU)": 24.7415,
+      "RMSE (MU)": 35.1479,
+      "R\u00b2": 0.291,
+      "MAPE (%)": 4.5473
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "Linear Regression",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.5347,
+      "Val RMSE (MU)": 39.4077,
+      "MAE (MU)": 20.875,
+      "RMSE (MU)": 26.1074,
+      "R\u00b2": 0.6088,
+      "MAPE (%)": 3.7553
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "Ridge Regression",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.5407,
+      "Val RMSE (MU)": 39.1509,
+      "MAE (MU)": 21.6922,
+      "RMSE (MU)": 26.9887,
+      "R\u00b2": 0.5819,
+      "MAPE (%)": 3.8892
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "Random Forest",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.5426,
+      "Val RMSE (MU)": 39.0701,
+      "MAE (MU)": 22.9434,
+      "RMSE (MU)": 28.3844,
+      "R\u00b2": 0.5376,
+      "MAPE (%)": 4.147
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "LightGBM",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.4963,
+      "Val RMSE (MU)": 41.0013,
+      "MAE (MU)": 22.8316,
+      "RMSE (MU)": 28.6883,
+      "R\u00b2": 0.5276,
+      "MAPE (%)": 4.1363
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "MLP (Neural Net)",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.5545,
+      "Val RMSE (MU)": 38.5598,
+      "MAE (MU)": 23.0423,
+      "RMSE (MU)": 28.6966,
+      "R\u00b2": 0.5274,
+      "MAPE (%)": 4.1375
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "Linear Regression",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9665,
+      "Val RMSE (MU)": 10.5797,
+      "MAE (MU)": 8.2076,
+      "RMSE (MU)": 11.2875,
+      "R\u00b2": 0.9269,
+      "MAPE (%)": 1.4864
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "Ridge Regression",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9665,
+      "Val RMSE (MU)": 10.5761,
+      "MAE (MU)": 8.2089,
+      "RMSE (MU)": 11.2841,
+      "R\u00b2": 0.9269,
+      "MAPE (%)": 1.4868
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "Random Forest",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9554,
+      "Val RMSE (MU)": 12.1946,
+      "MAE (MU)": 9.317,
+      "RMSE (MU)": 13.3414,
+      "R\u00b2": 0.8978,
+      "MAPE (%)": 1.6911
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "LightGBM",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9624,
+      "Val RMSE (MU)": 11.1967,
+      "MAE (MU)": 8.4885,
+      "RMSE (MU)": 11.7279,
+      "R\u00b2": 0.9211,
+      "MAPE (%)": 1.5396
+    },
+    {
+      "State": "Maharashtra",
+      "Model": "MLP (Neural Net)",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.945,
+      "Val RMSE (MU)": 13.5492,
+      "MAE (MU)": 10.5878,
+      "RMSE (MU)": 13.9102,
+      "R\u00b2": 0.8889,
+      "MAPE (%)": 1.9245
+    },
+    {
+      "State": "Kerala",
+      "Model": "Baseline: Training Mean",
+      "Feature Set": "Baseline",
+      "Val R\u00b2": -0.2066,
+      "Val RMSE (MU)": 6.6466,
+      "MAE (MU)": 7.0509,
+      "RMSE (MU)": 9.4085,
+      "R\u00b2": -0.0352,
+      "MAPE (%)": 7.895
+    },
+    {
+      "State": "Kerala",
+      "Model": "Baseline: Same Weekday Last Week",
+      "Feature Set": "Baseline",
+      "Val R\u00b2": 0.3655,
+      "Val RMSE (MU)": 4.8198,
+      "MAE (MU)": 3.5061,
+      "RMSE (MU)": 4.6745,
+      "R\u00b2": 0.7445,
+      "MAPE (%)": 4.1799
+    },
+    {
+      "State": "Kerala",
+      "Model": "Linear Regression",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.6941,
+      "Val RMSE (MU)": 3.3466,
+      "MAE (MU)": 3.1976,
+      "RMSE (MU)": 4.173,
+      "R\u00b2": 0.7964,
+      "MAPE (%)": 3.661
+    },
+    {
+      "State": "Kerala",
+      "Model": "Ridge Regression",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.6688,
+      "Val RMSE (MU)": 3.4823,
+      "MAE (MU)": 3.3904,
+      "RMSE (MU)": 4.4227,
+      "R\u00b2": 0.7713,
+      "MAPE (%)": 3.8642
+    },
+    {
+      "State": "Kerala",
+      "Model": "Random Forest",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.6875,
+      "Val RMSE (MU)": 3.3828,
+      "MAE (MU)": 2.8114,
+      "RMSE (MU)": 3.8119,
+      "R\u00b2": 0.8301,
+      "MAPE (%)": 3.1972
+    },
+    {
+      "State": "Kerala",
+      "Model": "LightGBM",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.6849,
+      "Val RMSE (MU)": 3.3968,
+      "MAE (MU)": 2.3208,
+      "RMSE (MU)": 3.1596,
+      "R\u00b2": 0.8832,
+      "MAPE (%)": 2.6576
+    },
+    {
+      "State": "Kerala",
+      "Model": "MLP (Neural Net)",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.6099,
+      "Val RMSE (MU)": 3.7795,
+      "MAE (MU)": 2.8236,
+      "RMSE (MU)": 3.684,
+      "R\u00b2": 0.8413,
+      "MAPE (%)": 3.2435
+    },
+    {
+      "State": "Kerala",
+      "Model": "Linear Regression",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.8973,
+      "Val RMSE (MU)": 1.939,
+      "MAE (MU)": 1.6731,
+      "RMSE (MU)": 2.0852,
+      "R\u00b2": 0.9492,
+      "MAPE (%)": 1.9859
+    },
+    {
+      "State": "Kerala",
+      "Model": "Ridge Regression",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.8973,
+      "Val RMSE (MU)": 1.939,
+      "MAE (MU)": 1.6731,
+      "RMSE (MU)": 2.0852,
+      "R\u00b2": 0.9492,
+      "MAPE (%)": 1.9859
+    },
+    {
+      "State": "Kerala",
+      "Model": "Random Forest",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9063,
+      "Val RMSE (MU)": 1.8526,
+      "MAE (MU)": 1.4647,
+      "RMSE (MU)": 2.0874,
+      "R\u00b2": 0.949,
+      "MAPE (%)": 1.6838
+    },
+    {
+      "State": "Kerala",
+      "Model": "LightGBM",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9014,
+      "Val RMSE (MU)": 1.9002,
+      "MAE (MU)": 1.375,
+      "RMSE (MU)": 1.9313,
+      "R\u00b2": 0.9564,
+      "MAPE (%)": 1.5828
+    },
+    {
+      "State": "Kerala",
+      "Model": "MLP (Neural Net)",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.8077,
+      "Val RMSE (MU)": 2.6532,
+      "MAE (MU)": 2.4138,
+      "RMSE (MU)": 3.2302,
+      "R\u00b2": 0.878,
+      "MAPE (%)": 2.8173
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "Baseline: Training Mean",
+      "Feature Set": "Baseline",
+      "Val R\u00b2": -0.0082,
+      "Val RMSE (MU)": 82.644,
+      "MAE (MU)": 76.6904,
+      "RMSE (MU)": 86.4222,
+      "R\u00b2": -0.1386,
+      "MAPE (%)": 20.5441
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "Baseline: Same Weekday Last Week",
+      "Feature Set": "Baseline",
+      "Val R\u00b2": 0.6649,
+      "Val RMSE (MU)": 47.6442,
+      "MAE (MU)": 35.9957,
+      "RMSE (MU)": 49.3391,
+      "R\u00b2": 0.6289,
+      "MAPE (%)": 9.2277
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "Linear Regression",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.7184,
+      "Val RMSE (MU)": 43.6773,
+      "MAE (MU)": 36.2557,
+      "RMSE (MU)": 43.9993,
+      "R\u00b2": 0.7049,
+      "MAPE (%)": 9.4698
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "Ridge Regression",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.7182,
+      "Val RMSE (MU)": 43.6909,
+      "MAE (MU)": 36.2459,
+      "RMSE (MU)": 43.9976,
+      "R\u00b2": 0.7049,
+      "MAPE (%)": 9.4671
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "Random Forest",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.8103,
+      "Val RMSE (MU)": 35.8461,
+      "MAE (MU)": 32.1311,
+      "RMSE (MU)": 38.3153,
+      "R\u00b2": 0.7762,
+      "MAPE (%)": 8.6582
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "LightGBM",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.8102,
+      "Val RMSE (MU)": 35.8585,
+      "MAE (MU)": 33.7977,
+      "RMSE (MU)": 39.6413,
+      "R\u00b2": 0.7604,
+      "MAPE (%)": 9.1046
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "MLP (Neural Net)",
+      "Feature Set": "Set A (Weather+Cal)",
+      "Val R\u00b2": 0.7395,
+      "Val RMSE (MU)": 42.0096,
+      "MAE (MU)": 38.2398,
+      "RMSE (MU)": 45.9808,
+      "R\u00b2": 0.6777,
+      "MAPE (%)": 10.1715
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "Linear Regression",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9648,
+      "Val RMSE (MU)": 15.443,
+      "MAE (MU)": 11.909,
+      "RMSE (MU)": 16.2527,
+      "R\u00b2": 0.9597,
+      "MAPE (%)": 3.0754
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "Ridge Regression",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9648,
+      "Val RMSE (MU)": 15.4418,
+      "MAE (MU)": 11.8784,
+      "RMSE (MU)": 16.2323,
+      "R\u00b2": 0.9598,
+      "MAPE (%)": 3.0669
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "Random Forest",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9659,
+      "Val RMSE (MU)": 15.1957,
+      "MAE (MU)": 11.693,
+      "RMSE (MU)": 16.0531,
+      "R\u00b2": 0.9607,
+      "MAPE (%)": 3.0019
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "LightGBM",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9716,
+      "Val RMSE (MU)": 13.8662,
+      "MAE (MU)": 11.0972,
+      "RMSE (MU)": 15.1601,
+      "R\u00b2": 0.965,
+      "MAPE (%)": 2.8069
+    },
+    {
+      "State": "Uttar Pradesh",
+      "Model": "MLP (Neural Net)",
+      "Feature Set": "Set B (Set A+Lags)",
+      "Val R\u00b2": 0.9111,
+      "Val RMSE (MU)": 24.5405,
+      "MAE (MU)": 23.627,
+      "RMSE (MU)": 29.654,
+      "R\u00b2": 0.8659,
+      "MAPE (%)": 6.3154
+    }
+  ],
+  "delhi_monthly_test_errors": [
+    {
+      "Month": "Jan",
+      "Days": 62,
+      "Mean_Actual_MU": 84.082,
+      "MAE_MU": 2.314,
+      "RMSE_MU": 2.791,
+      "MAPE_Pct": 2.736
+    },
+    {
+      "Month": "Feb",
+      "Days": 57,
+      "Mean_Actual_MU": 71.57,
+      "MAE_MU": 1.227,
+      "RMSE_MU": 1.559,
+      "MAPE_Pct": 1.726
+    },
+    {
+      "Month": "Mar",
+      "Days": 62,
+      "Mean_Actual_MU": 69.839,
+      "MAE_MU": 2.072,
+      "RMSE_MU": 2.909,
+      "MAPE_Pct": 3.094
+    },
+    {
+      "Month": "Apr",
+      "Days": 57,
+      "Mean_Actual_MU": 89.149,
+      "MAE_MU": 2.172,
+      "RMSE_MU": 2.83,
+      "MAPE_Pct": 2.496
+    },
+    {
+      "Month": "May",
+      "Days": 31,
+      "Mean_Actual_MU": 100.561,
+      "MAE_MU": 2.485,
+      "RMSE_MU": 3.204,
+      "MAPE_Pct": 2.492
+    },
+    {
+      "Month": "Jun",
+      "Days": 30,
+      "Mean_Actual_MU": 122.213,
+      "MAE_MU": 2.462,
+      "RMSE_MU": 3.527,
+      "MAPE_Pct": 2.077
+    },
+    {
+      "Month": "Jul",
+      "Days": 31,
+      "Mean_Actual_MU": 126.184,
+      "MAE_MU": 3.69,
+      "RMSE_MU": 4.592,
+      "MAPE_Pct": 2.832
+    },
+    {
+      "Month": "Aug",
+      "Days": 31,
+      "Mean_Actual_MU": 131.474,
+      "MAE_MU": 3.162,
+      "RMSE_MU": 4.552,
+      "MAPE_Pct": 2.408
+    },
+    {
+      "Month": "Sep",
+      "Days": 30,
+      "Mean_Actual_MU": 123.723,
+      "MAE_MU": 3.433,
+      "RMSE_MU": 4.127,
+      "MAPE_Pct": 2.744
+    },
+    {
+      "Month": "Oct",
+      "Days": 31,
+      "Mean_Actual_MU": 90.49,
+      "MAE_MU": 2.139,
+      "RMSE_MU": 3.147,
+      "MAPE_Pct": 2.4
+    },
+    {
+      "Month": "Nov",
+      "Days": 30,
+      "Mean_Actual_MU": 70.48,
+      "MAE_MU": 1.705,
+      "RMSE_MU": 2.547,
+      "MAPE_Pct": 2.606
+    },
+    {
+      "Month": "Dec",
+      "Days": 31,
+      "Mean_Actual_MU": 71.335,
+      "MAE_MU": 1.272,
+      "RMSE_MU": 1.531,
+      "MAPE_Pct": 1.779
+    }
+  ],
+  "peak_alert_classification_top10pct": {
+    "per_state": [
+      {
+        "State": "Delhi",
+        "90th Percentile Threshold (MU)": 130.1,
+        "Actual Peak Days": 49,
+        "Predicted Peak Days": 40,
+        "Precision": 0.975,
+        "Recall": 0.796,
+        "F1-Score": 0.876,
+        "Accuracy": 0.977
+      },
+      {
+        "State": "Maharashtra",
+        "90th Percentile Threshold (MU)": 610.9,
+        "Actual Peak Days": 49,
+        "Predicted Peak Days": 42,
+        "Precision": 0.833,
+        "Recall": 0.714,
+        "F1-Score": 0.769,
+        "Accuracy": 0.957
+      },
+      {
+        "State": "Kerala",
+        "90th Percentile Threshold (MU)": 99.3,
+        "Actual Peak Days": 49,
+        "Predicted Peak Days": 42,
+        "Precision": 0.952,
+        "Recall": 0.816,
+        "F1-Score": 0.879,
+        "Accuracy": 0.977
+      },
+      {
+        "State": "Uttar Pradesh",
+        "90th Percentile Threshold (MU)": 513.1,
+        "Actual Peak Days": 49,
+        "Predicted Peak Days": 38,
+        "Precision": 0.947,
+        "Recall": 0.735,
+        "F1-Score": 0.828,
+        "Accuracy": 0.969
+      },
+      {
+        "State": "OVERALL (All 4 Focus States)",
+        "90th Percentile Threshold (MU)": NaN,
+        "Actual Peak Days": 196,
+        "Predicted Peak Days": 162,
+        "Precision": 0.926,
+        "Recall": 0.765,
+        "F1-Score": 0.838,
+        "Accuracy": 0.97
+      }
+    ],
+    "confusion_matrix_overall": [
+      [
+        1724,
+        12
+      ],
+      [
+        46,
+        150
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "Normal Day (<90th %)",
+      "Peak Day (Top 10%)"
+    ]
+  },
+  "national_all_states_test_results": [
+    {
+      "State / UT": "Delhi",
+      "Mean Test Demand (MU)": 91.7557,
+      "Baseline Lag-7 R\u00b2": 0.7604,
+      "Set A (Weather+Cal) R\u00b2": 0.9415,
+      "Set B (Best Pipeline) R\u00b2": 0.983,
+      "Set B MAE (MU)": 2.2544,
+      "Set B RMSE (MU)": 3.1113,
+      "Set B MAPE (%)": 2.4724
+    },
+    {
+      "State / UT": "Punjab",
+      "Mean Test Demand (MU)": 181.9439,
+      "Baseline Lag-7 R\u00b2": 0.7122,
+      "Set A (Weather+Cal) R\u00b2": 0.9166,
+      "Set B (Best Pipeline) R\u00b2": 0.9741,
+      "Set B MAE (MU)": 7.1298,
+      "Set B RMSE (MU)": 10.0063,
+      "Set B MAPE (%)": 4.0047
+    },
+    {
+      "State / UT": "Chandigarh",
+      "Mean Test Demand (MU)": 4.66,
+      "Baseline Lag-7 R\u00b2": 0.7178,
+      "Set A (Weather+Cal) R\u00b2": 0.9076,
+      "Set B (Best Pipeline) R\u00b2": 0.9661,
+      "Set B MAE (MU)": 0.1841,
+      "Set B RMSE (MU)": 0.2387,
+      "Set B MAPE (%)": 3.8494
+    },
+    {
+      "State / UT": "Uttar Pradesh",
+      "Mean Test Demand (MU)": 390.5379,
+      "Baseline Lag-7 R\u00b2": 0.6289,
+      "Set A (Weather+Cal) R\u00b2": 0.7589,
+      "Set B (Best Pipeline) R\u00b2": 0.965,
+      "Set B MAE (MU)": 11.0972,
+      "Set B RMSE (MU)": 15.1601,
+      "Set B MAPE (%)": 2.8069
+    },
+    {
+      "State / UT": "Haryana",
+      "Mean Test Demand (MU)": 166.0914,
+      "Baseline Lag-7 R\u00b2": 0.7394,
+      "Set A (Weather+Cal) R\u00b2": 0.882,
+      "Set B (Best Pipeline) R\u00b2": 0.9647,
+      "Set B MAE (MU)": 5.5254,
+      "Set B RMSE (MU)": 7.4637,
+      "Set B MAPE (%)": 3.4231
+    },
+    {
+      "State / UT": "Madhya Pradesh",
+      "Mean Test Demand (MU)": 269.0645,
+      "Baseline Lag-7 R\u00b2": 0.3472,
+      "Set A (Weather+Cal) R\u00b2": 0.6274,
+      "Set B (Best Pipeline) R\u00b2": 0.9631,
+      "Set B MAE (MU)": 5.3186,
+      "Set B RMSE (MU)": 7.1775,
+      "Set B MAPE (%)": 2.07
+    },
+    {
+      "State / UT": "Telangana",
+      "Mean Test Demand (MU)": 239.3828,
+      "Baseline Lag-7 R\u00b2": 0.4382,
+      "Set A (Weather+Cal) R\u00b2": 0.6609,
+      "Set B (Best Pipeline) R\u00b2": 0.9565,
+      "Set B MAE (MU)": 5.4868,
+      "Set B RMSE (MU)": 7.6805,
+      "Set B MAPE (%)": 2.4005
+    },
+    {
+      "State / UT": "Kerala",
+      "Mean Test Demand (MU)": 84.964,
+      "Baseline Lag-7 R\u00b2": 0.7445,
+      "Set A (Weather+Cal) R\u00b2": 0.8725,
+      "Set B (Best Pipeline) R\u00b2": 0.9564,
+      "Set B MAE (MU)": 1.375,
+      "Set B RMSE (MU)": 1.9313,
+      "Set B MAPE (%)": 1.5828
+    },
+    {
+      "State / UT": "Assam",
+      "Mean Test Demand (MU)": 32.1905,
+      "Baseline Lag-7 R\u00b2": 0.6151,
+      "Set A (Weather+Cal) R\u00b2": 0.8171,
+      "Set B (Best Pipeline) R\u00b2": 0.95,
+      "Set B MAE (MU)": 1.1645,
+      "Set B RMSE (MU)": 1.5554,
+      "Set B MAPE (%)": 3.5605
+    },
+    {
+      "State / UT": "Karnataka",
+      "Mean Test Demand (MU)": 263.6135,
+      "Baseline Lag-7 R\u00b2": 0.6159,
+      "Set A (Weather+Cal) R\u00b2": 0.4964,
+      "Set B (Best Pipeline) R\u00b2": 0.9494,
+      "Set B MAE (MU)": 6.036,
+      "Set B RMSE (MU)": 7.8886,
+      "Set B MAPE (%)": 2.3414
+    },
+    {
+      "State / UT": "West Bengal",
+      "Mean Test Demand (MU)": 174.7019,
+      "Baseline Lag-7 R\u00b2": 0.5676,
+      "Set A (Weather+Cal) R\u00b2": 0.8414,
+      "Set B (Best Pipeline) R\u00b2": 0.9491,
+      "Set B MAE (MU)": 5.776,
+      "Set B RMSE (MU)": 7.898,
+      "Set B MAPE (%)": 3.138
+    },
+    {
+      "State / UT": "Bihar",
+      "Mean Test Demand (MU)": 108.9704,
+      "Baseline Lag-7 R\u00b2": 0.6132,
+      "Set A (Weather+Cal) R\u00b2": 0.543,
+      "Set B (Best Pipeline) R\u00b2": 0.9483,
+      "Set B MAE (MU)": 3.6602,
+      "Set B RMSE (MU)": 5.0567,
+      "Set B MAPE (%)": 3.3528
+    },
+    {
+      "State / UT": "Tamil Nadu",
+      "Mean Test Demand (MU)": 345.5758,
+      "Baseline Lag-7 R\u00b2": 0.582,
+      "Set A (Weather+Cal) R\u00b2": 0.7082,
+      "Set B (Best Pipeline) R\u00b2": 0.9292,
+      "Set B MAE (MU)": 7.9993,
+      "Set B RMSE (MU)": 10.7131,
+      "Set B MAPE (%)": 2.3848
+    },
+    {
+      "State / UT": "Andhra Pradesh",
+      "Mean Test Demand (MU)": 220.3077,
+      "Baseline Lag-7 R\u00b2": 0.2349,
+      "Set A (Weather+Cal) R\u00b2": -0.0858,
+      "Set B (Best Pipeline) R\u00b2": 0.9259,
+      "Set B MAE (MU)": 3.8954,
+      "Set B RMSE (MU)": 5.427,
+      "Set B MAPE (%)": 1.8279
+    },
+    {
+      "State / UT": "Chhattisgarh",
+      "Mean Test Demand (MU)": 109.5213,
+      "Baseline Lag-7 R\u00b2": 0.2369,
+      "Set A (Weather+Cal) R\u00b2": 0.6125,
+      "Set B (Best Pipeline) R\u00b2": 0.9234,
+      "Set B MAE (MU)": 2.7524,
+      "Set B RMSE (MU)": 3.7935,
+      "Set B MAPE (%)": 2.5478
+    },
+    {
+      "State / UT": "Maharashtra",
+      "Mean Test Demand (MU)": 559.8028,
+      "Baseline Lag-7 R\u00b2": 0.291,
+      "Set A (Weather+Cal) R\u00b2": 0.6049,
+      "Set B (Best Pipeline) R\u00b2": 0.9211,
+      "Set B MAE (MU)": 8.4885,
+      "Set B RMSE (MU)": 11.7279,
+      "Set B MAPE (%)": 1.5396
+    },
+    {
+      "State / UT": "Rajasthan",
+      "Mean Test Demand (MU)": 288.2048,
+      "Baseline Lag-7 R\u00b2": 0.1639,
+      "Set A (Weather+Cal) R\u00b2": 0.6068,
+      "Set B (Best Pipeline) R\u00b2": 0.9177,
+      "Set B MAE (MU)": 6.917,
+      "Set B RMSE (MU)": 9.7761,
+      "Set B MAPE (%)": 2.5204
+    },
+    {
+      "State / UT": "Gujarat",
+      "Mean Test Demand (MU)": 404.1635,
+      "Baseline Lag-7 R\u00b2": -0.012,
+      "Set A (Weather+Cal) R\u00b2": 0.5457,
+      "Set B (Best Pipeline) R\u00b2": 0.8926,
+      "Set B MAE (MU)": 8.9531,
+      "Set B RMSE (MU)": 12.9286,
+      "Set B MAPE (%)": 2.296
+    },
+    {
+      "State / UT": "Puducherry",
+      "Mean Test Demand (MU)": 9.4106,
+      "Baseline Lag-7 R\u00b2": 0.4188,
+      "Set A (Weather+Cal) R\u00b2": 0.6692,
+      "Set B (Best Pipeline) R\u00b2": 0.8566,
+      "Set B MAE (MU)": 0.2582,
+      "Set B RMSE (MU)": 0.3627,
+      "Set B MAPE (%)": 2.8088
+    },
+    {
+      "State / UT": "Odisha",
+      "Mean Test Demand (MU)": 112.1062,
+      "Baseline Lag-7 R\u00b2": 0.2893,
+      "Set A (Weather+Cal) R\u00b2": 0.5612,
+      "Set B (Best Pipeline) R\u00b2": 0.8414,
+      "Set B MAE (MU)": 4.0103,
+      "Set B RMSE (MU)": 5.2512,
+      "Set B MAPE (%)": 3.5985
+    },
+    {
+      "State / UT": "Meghalaya",
+      "Mean Test Demand (MU)": 5.8863,
+      "Baseline Lag-7 R\u00b2": 0.6998,
+      "Set A (Weather+Cal) R\u00b2": 0.4482,
+      "Set B (Best Pipeline) R\u00b2": 0.8371,
+      "Set B MAE (MU)": 0.2237,
+      "Set B RMSE (MU)": 0.2951,
+      "Set B MAPE (%)": 4.0268
+    },
+    {
+      "State / UT": "Jammu and Kashmir",
+      "Mean Test Demand (MU)": 54.9325,
+      "Baseline Lag-7 R\u00b2": 0.607,
+      "Set A (Weather+Cal) R\u00b2": 0.5015,
+      "Set B (Best Pipeline) R\u00b2": 0.8228,
+      "Set B MAE (MU)": 1.554,
+      "Set B RMSE (MU)": 2.2074,
+      "Set B MAPE (%)": 2.8943
+    },
+    {
+      "State / UT": "Uttarakhand",
+      "Mean Test Demand (MU)": 42.3723,
+      "Baseline Lag-7 R\u00b2": 0.2845,
+      "Set A (Weather+Cal) R\u00b2": 0.6304,
+      "Set B (Best Pipeline) R\u00b2": 0.82,
+      "Set B MAE (MU)": 1.3333,
+      "Set B RMSE (MU)": 1.8735,
+      "Set B MAPE (%)": 3.2313
+    },
+    {
+      "State / UT": "Tripura",
+      "Mean Test Demand (MU)": 4.6788,
+      "Baseline Lag-7 R\u00b2": 0.2052,
+      "Set A (Weather+Cal) R\u00b2": 0.6051,
+      "Set B (Best Pipeline) R\u00b2": 0.7938,
+      "Set B MAE (MU)": 0.2944,
+      "Set B RMSE (MU)": 0.4323,
+      "Set B MAPE (%)": 6.5361
+    },
+    {
+      "State / UT": "Jharkhand",
+      "Mean Test Demand (MU)": 32.8536,
+      "Baseline Lag-7 R\u00b2": 0.4938,
+      "Set A (Weather+Cal) R\u00b2": 0.1447,
+      "Set B (Best Pipeline) R\u00b2": 0.7695,
+      "Set B MAE (MU)": 1.5252,
+      "Set B RMSE (MU)": 1.9882,
+      "Set B MAPE (%)": 4.5196
+    },
+    {
+      "State / UT": "Manipur",
+      "Mean Test Demand (MU)": 2.7843,
+      "Baseline Lag-7 R\u00b2": 0.4909,
+      "Set A (Weather+Cal) R\u00b2": 0.2119,
+      "Set B (Best Pipeline) R\u00b2": 0.7668,
+      "Set B MAE (MU)": 0.1129,
+      "Set B RMSE (MU)": 0.1527,
+      "Set B MAPE (%)": 4.2439
+    },
+    {
+      "State / UT": "Himachal Pradesh",
+      "Mean Test Demand (MU)": 32.9139,
+      "Baseline Lag-7 R\u00b2": 0.1062,
+      "Set A (Weather+Cal) R\u00b2": 0.421,
+      "Set B (Best Pipeline) R\u00b2": 0.7385,
+      "Set B MAE (MU)": 1.1088,
+      "Set B RMSE (MU)": 1.5647,
+      "Set B MAPE (%)": 3.5589
+    },
+    {
+      "State / UT": "Sikkim",
+      "Mean Test Demand (MU)": 1.5141,
+      "Baseline Lag-7 R\u00b2": 0.5506,
+      "Set A (Weather+Cal) R\u00b2": 0.3694,
+      "Set B (Best Pipeline) R\u00b2": 0.7355,
+      "Set B MAE (MU)": 0.1391,
+      "Set B RMSE (MU)": 0.1808,
+      "Set B MAPE (%)": 10.3634
+    },
+    {
+      "State / UT": "Goa",
+      "Mean Test Demand (MU)": 13.8296,
+      "Baseline Lag-7 R\u00b2": 0.2802,
+      "Set A (Weather+Cal) R\u00b2": 0.4821,
+      "Set B (Best Pipeline) R\u00b2": 0.7307,
+      "Set B MAE (MU)": 0.4808,
+      "Set B RMSE (MU)": 0.6728,
+      "Set B MAPE (%)": 3.552
+    },
+    {
+      "State / UT": "Nagaland",
+      "Mean Test Demand (MU)": 2.44,
+      "Baseline Lag-7 R\u00b2": 0.4442,
+      "Set A (Weather+Cal) R\u00b2": -0.3065,
+      "Set B (Best Pipeline) R\u00b2": 0.7092,
+      "Set B MAE (MU)": 0.1242,
+      "Set B RMSE (MU)": 0.1639,
+      "Set B MAPE (%)": 5.2294
+    },
+    {
+      "State / UT": "Mizoram",
+      "Mean Test Demand (MU)": 1.9114,
+      "Baseline Lag-7 R\u00b2": 0.1395,
+      "Set A (Weather+Cal) R\u00b2": 0.3254,
+      "Set B (Best Pipeline) R\u00b2": 0.5362,
+      "Set B MAE (MU)": 0.0994,
+      "Set B RMSE (MU)": 0.1385,
+      "Set B MAPE (%)": 5.2929
+    },
+    {
+      "State / UT": "Arunachal Pradesh",
+      "Mean Test Demand (MU)": 2.7087,
+      "Baseline Lag-7 R\u00b2": 0.0404,
+      "Set A (Weather+Cal) R\u00b2": 0.0173,
+      "Set B (Best Pipeline) R\u00b2": 0.5167,
+      "Set B MAE (MU)": 0.1411,
+      "Set B RMSE (MU)": 0.1853,
+      "Set B MAPE (%)": 5.3243
+    }
+  ]
+}
