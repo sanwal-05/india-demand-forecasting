@@ -1,10 +1,499 @@
 {
-  "best_model_name": "LightGBM (LGBMRegressor)",
   "target_unit": "MU (Million Units = GWh)",
   "splits": {
     "train": "2014-01-08 to 2021-12-31",
     "validation": "2022-01-01 to 2022-12-31",
     "test": "2023-01-01 to 2024-04-27"
+  },
+  "per_state_model_comparison": {
+    "Delhi": [
+      {
+        "Model": "Baseline: Training Mean",
+        "Feature Set": "Baseline",
+        "Val R\u00b2": 0.0339,
+        "Val RMSE (MU)": 26.297,
+        "MAE (MU)": 22.5306,
+        "RMSE (MU)": 25.5106,
+        "R\u00b2": -0.1409,
+        "MAPE (%)": 25.7183
+      },
+      {
+        "Model": "Baseline: Same Weekday Last Week",
+        "Feature Set": "Baseline",
+        "Val R\u00b2": 0.7789,
+        "Val RMSE (MU)": 12.5795,
+        "MAE (MU)": 8.4112,
+        "RMSE (MU)": 11.6902,
+        "R\u00b2": 0.7604,
+        "MAPE (%)": 8.7815
+      },
+      {
+        "Model": "Linear Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.8595,
+        "Val RMSE (MU)": 10.0287,
+        "MAE (MU)": 7.3224,
+        "RMSE (MU)": 9.0262,
+        "R\u00b2": 0.8572,
+        "MAPE (%)": 8.3469
+      },
+      {
+        "Model": "Ridge Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.8588,
+        "Val RMSE (MU)": 10.0534,
+        "MAE (MU)": 7.3276,
+        "RMSE (MU)": 9.0191,
+        "R\u00b2": 0.8574,
+        "MAPE (%)": 8.3414
+      },
+      {
+        "Model": "Random Forest",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.9311,
+        "Val RMSE (MU)": 7.023,
+        "MAE (MU)": 4.5722,
+        "RMSE (MU)": 6.1858,
+        "R\u00b2": 0.9329,
+        "MAPE (%)": 4.8007
+      },
+      {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.9469,
+        "Val RMSE (MU)": 6.164,
+        "MAE (MU)": 4.4749,
+        "RMSE (MU)": 5.7781,
+        "R\u00b2": 0.9415,
+        "MAPE (%)": 4.8178
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.9507,
+        "Val RMSE (MU)": 5.9379,
+        "MAE (MU)": 4.3821,
+        "RMSE (MU)": 5.7695,
+        "R\u00b2": 0.9416,
+        "MAPE (%)": 4.7394
+      },
+      {
+        "Model": "Linear Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9821,
+        "Val RMSE (MU)": 3.5819,
+        "MAE (MU)": 2.4681,
+        "RMSE (MU)": 3.3934,
+        "R\u00b2": 0.9798,
+        "MAPE (%)": 2.7846
+      },
+      {
+        "Model": "Ridge Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.982,
+        "Val RMSE (MU)": 3.5853,
+        "MAE (MU)": 2.4659,
+        "RMSE (MU)": 3.3931,
+        "R\u00b2": 0.9798,
+        "MAPE (%)": 2.7805
+      },
+      {
+        "Model": "Random Forest",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9811,
+        "Val RMSE (MU)": 3.6793,
+        "MAE (MU)": 2.4168,
+        "RMSE (MU)": 3.4019,
+        "R\u00b2": 0.9797,
+        "MAPE (%)": 2.6281
+      },
+      {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9855,
+        "Val RMSE (MU)": 3.2215,
+        "MAE (MU)": 2.2544,
+        "RMSE (MU)": 3.1113,
+        "R\u00b2": 0.983,
+        "MAPE (%)": 2.4724
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9753,
+        "Val RMSE (MU)": 4.2089,
+        "MAE (MU)": 3.5076,
+        "RMSE (MU)": 4.6235,
+        "R\u00b2": 0.9625,
+        "MAPE (%)": 3.9699
+      }
+    ],
+    "Maharashtra": [
+      {
+        "Model": "Baseline: Training Mean",
+        "Feature Set": "Baseline",
+        "Val R\u00b2": -0.264,
+        "Val RMSE (MU)": 64.9527,
+        "MAE (MU)": 34.979,
+        "RMSE (MU)": 42.0584,
+        "R\u00b2": -0.0153,
+        "MAPE (%)": 6.2422
+      },
+      {
+        "Model": "Baseline: Same Weekday Last Week",
+        "Feature Set": "Baseline",
+        "Val R\u00b2": 0.7484,
+        "Val RMSE (MU)": 28.9804,
+        "MAE (MU)": 24.7415,
+        "RMSE (MU)": 35.1479,
+        "R\u00b2": 0.291,
+        "MAPE (%)": 4.5473
+      },
+      {
+        "Model": "Linear Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.5347,
+        "Val RMSE (MU)": 39.4077,
+        "MAE (MU)": 20.875,
+        "RMSE (MU)": 26.1074,
+        "R\u00b2": 0.6088,
+        "MAPE (%)": 3.7553
+      },
+      {
+        "Model": "Ridge Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.5407,
+        "Val RMSE (MU)": 39.1509,
+        "MAE (MU)": 21.6922,
+        "RMSE (MU)": 26.9887,
+        "R\u00b2": 0.5819,
+        "MAPE (%)": 3.8892
+      },
+      {
+        "Model": "Random Forest",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.5426,
+        "Val RMSE (MU)": 39.0701,
+        "MAE (MU)": 22.9434,
+        "RMSE (MU)": 28.3844,
+        "R\u00b2": 0.5376,
+        "MAPE (%)": 4.147
+      },
+      {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.4963,
+        "Val RMSE (MU)": 41.0013,
+        "MAE (MU)": 22.8316,
+        "RMSE (MU)": 28.6883,
+        "R\u00b2": 0.5276,
+        "MAPE (%)": 4.1363
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.5545,
+        "Val RMSE (MU)": 38.5598,
+        "MAE (MU)": 23.0423,
+        "RMSE (MU)": 28.6966,
+        "R\u00b2": 0.5274,
+        "MAPE (%)": 4.1375
+      },
+      {
+        "Model": "Linear Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9665,
+        "Val RMSE (MU)": 10.5797,
+        "MAE (MU)": 8.2076,
+        "RMSE (MU)": 11.2875,
+        "R\u00b2": 0.9269,
+        "MAPE (%)": 1.4864
+      },
+      {
+        "Model": "Ridge Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9665,
+        "Val RMSE (MU)": 10.5761,
+        "MAE (MU)": 8.2089,
+        "RMSE (MU)": 11.2841,
+        "R\u00b2": 0.9269,
+        "MAPE (%)": 1.4868
+      },
+      {
+        "Model": "Random Forest",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9554,
+        "Val RMSE (MU)": 12.1946,
+        "MAE (MU)": 9.317,
+        "RMSE (MU)": 13.3414,
+        "R\u00b2": 0.8978,
+        "MAPE (%)": 1.6911
+      },
+      {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9624,
+        "Val RMSE (MU)": 11.1967,
+        "MAE (MU)": 8.4885,
+        "RMSE (MU)": 11.7279,
+        "R\u00b2": 0.9211,
+        "MAPE (%)": 1.5396
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.945,
+        "Val RMSE (MU)": 13.5492,
+        "MAE (MU)": 10.5878,
+        "RMSE (MU)": 13.9102,
+        "R\u00b2": 0.8889,
+        "MAPE (%)": 1.9245
+      }
+    ],
+    "Kerala": [
+      {
+        "Model": "Baseline: Training Mean",
+        "Feature Set": "Baseline",
+        "Val R\u00b2": -0.2066,
+        "Val RMSE (MU)": 6.6466,
+        "MAE (MU)": 7.0509,
+        "RMSE (MU)": 9.4085,
+        "R\u00b2": -0.0352,
+        "MAPE (%)": 7.895
+      },
+      {
+        "Model": "Baseline: Same Weekday Last Week",
+        "Feature Set": "Baseline",
+        "Val R\u00b2": 0.3655,
+        "Val RMSE (MU)": 4.8198,
+        "MAE (MU)": 3.5061,
+        "RMSE (MU)": 4.6745,
+        "R\u00b2": 0.7445,
+        "MAPE (%)": 4.1799
+      },
+      {
+        "Model": "Linear Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.6941,
+        "Val RMSE (MU)": 3.3466,
+        "MAE (MU)": 3.1976,
+        "RMSE (MU)": 4.173,
+        "R\u00b2": 0.7964,
+        "MAPE (%)": 3.661
+      },
+      {
+        "Model": "Ridge Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.6688,
+        "Val RMSE (MU)": 3.4823,
+        "MAE (MU)": 3.3904,
+        "RMSE (MU)": 4.4227,
+        "R\u00b2": 0.7713,
+        "MAPE (%)": 3.8642
+      },
+      {
+        "Model": "Random Forest",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.6875,
+        "Val RMSE (MU)": 3.3828,
+        "MAE (MU)": 2.8114,
+        "RMSE (MU)": 3.8119,
+        "R\u00b2": 0.8301,
+        "MAPE (%)": 3.1972
+      },
+      {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.6849,
+        "Val RMSE (MU)": 3.3968,
+        "MAE (MU)": 2.3208,
+        "RMSE (MU)": 3.1596,
+        "R\u00b2": 0.8832,
+        "MAPE (%)": 2.6576
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.6099,
+        "Val RMSE (MU)": 3.7795,
+        "MAE (MU)": 2.8236,
+        "RMSE (MU)": 3.684,
+        "R\u00b2": 0.8413,
+        "MAPE (%)": 3.2435
+      },
+      {
+        "Model": "Linear Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.8973,
+        "Val RMSE (MU)": 1.939,
+        "MAE (MU)": 1.6731,
+        "RMSE (MU)": 2.0852,
+        "R\u00b2": 0.9492,
+        "MAPE (%)": 1.9859
+      },
+      {
+        "Model": "Ridge Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.8973,
+        "Val RMSE (MU)": 1.939,
+        "MAE (MU)": 1.6731,
+        "RMSE (MU)": 2.0852,
+        "R\u00b2": 0.9492,
+        "MAPE (%)": 1.9859
+      },
+      {
+        "Model": "Random Forest",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9063,
+        "Val RMSE (MU)": 1.8526,
+        "MAE (MU)": 1.4647,
+        "RMSE (MU)": 2.0874,
+        "R\u00b2": 0.949,
+        "MAPE (%)": 1.6838
+      },
+      {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9014,
+        "Val RMSE (MU)": 1.9002,
+        "MAE (MU)": 1.375,
+        "RMSE (MU)": 1.9313,
+        "R\u00b2": 0.9564,
+        "MAPE (%)": 1.5828
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.8077,
+        "Val RMSE (MU)": 2.6532,
+        "MAE (MU)": 2.4138,
+        "RMSE (MU)": 3.2302,
+        "R\u00b2": 0.878,
+        "MAPE (%)": 2.8173
+      }
+    ],
+    "Uttar Pradesh": [
+      {
+        "Model": "Baseline: Training Mean",
+        "Feature Set": "Baseline",
+        "Val R\u00b2": -0.0082,
+        "Val RMSE (MU)": 82.644,
+        "MAE (MU)": 76.6904,
+        "RMSE (MU)": 86.4222,
+        "R\u00b2": -0.1386,
+        "MAPE (%)": 20.5441
+      },
+      {
+        "Model": "Baseline: Same Weekday Last Week",
+        "Feature Set": "Baseline",
+        "Val R\u00b2": 0.6649,
+        "Val RMSE (MU)": 47.6442,
+        "MAE (MU)": 35.9957,
+        "RMSE (MU)": 49.3391,
+        "R\u00b2": 0.6289,
+        "MAPE (%)": 9.2277
+      },
+      {
+        "Model": "Linear Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.7184,
+        "Val RMSE (MU)": 43.6773,
+        "MAE (MU)": 36.2557,
+        "RMSE (MU)": 43.9993,
+        "R\u00b2": 0.7049,
+        "MAPE (%)": 9.4698
+      },
+      {
+        "Model": "Ridge Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.7182,
+        "Val RMSE (MU)": 43.6909,
+        "MAE (MU)": 36.2459,
+        "RMSE (MU)": 43.9976,
+        "R\u00b2": 0.7049,
+        "MAPE (%)": 9.4671
+      },
+      {
+        "Model": "Random Forest",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.8103,
+        "Val RMSE (MU)": 35.8461,
+        "MAE (MU)": 32.1311,
+        "RMSE (MU)": 38.3153,
+        "R\u00b2": 0.7762,
+        "MAPE (%)": 8.6582
+      },
+      {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.8102,
+        "Val RMSE (MU)": 35.8585,
+        "MAE (MU)": 33.7977,
+        "RMSE (MU)": 39.6413,
+        "R\u00b2": 0.7604,
+        "MAPE (%)": 9.1046
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.7395,
+        "Val RMSE (MU)": 42.0096,
+        "MAE (MU)": 38.2398,
+        "RMSE (MU)": 45.9808,
+        "R\u00b2": 0.6777,
+        "MAPE (%)": 10.1715
+      },
+      {
+        "Model": "Linear Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9648,
+        "Val RMSE (MU)": 15.443,
+        "MAE (MU)": 11.909,
+        "RMSE (MU)": 16.2527,
+        "R\u00b2": 0.9597,
+        "MAPE (%)": 3.0754
+      },
+      {
+        "Model": "Ridge Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9648,
+        "Val RMSE (MU)": 15.4418,
+        "MAE (MU)": 11.8784,
+        "RMSE (MU)": 16.2323,
+        "R\u00b2": 0.9598,
+        "MAPE (%)": 3.0669
+      },
+      {
+        "Model": "Random Forest",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9659,
+        "Val RMSE (MU)": 15.1957,
+        "MAE (MU)": 11.693,
+        "RMSE (MU)": 16.0531,
+        "R\u00b2": 0.9607,
+        "MAPE (%)": 3.0019
+      },
+      {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9716,
+        "Val RMSE (MU)": 13.8662,
+        "MAE (MU)": 11.0972,
+        "RMSE (MU)": 15.1601,
+        "R\u00b2": 0.965,
+        "MAPE (%)": 2.8069
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9111,
+        "Val RMSE (MU)": 24.5405,
+        "MAE (MU)": 23.627,
+        "RMSE (MU)": 29.654,
+        "R\u00b2": 0.8659,
+        "MAPE (%)": 6.3154
+      }
+    ]
   },
   "focus_states_comparison": [
     {
@@ -536,173 +1025,181 @@
       "MAPE (%)": 6.3154
     }
   ],
-  "delhi_monthly_test_errors": [
-    {
-      "Month": "Jan",
-      "Days": 62,
-      "Mean_Actual_MU": 84.082,
-      "MAE_MU": 2.314,
-      "RMSE_MU": 2.791,
-      "MAPE_Pct": 2.736
-    },
-    {
-      "Month": "Feb",
-      "Days": 57,
-      "Mean_Actual_MU": 71.57,
-      "MAE_MU": 1.227,
-      "RMSE_MU": 1.559,
-      "MAPE_Pct": 1.726
-    },
-    {
-      "Month": "Mar",
-      "Days": 62,
-      "Mean_Actual_MU": 69.839,
-      "MAE_MU": 2.072,
-      "RMSE_MU": 2.909,
-      "MAPE_Pct": 3.094
-    },
-    {
-      "Month": "Apr",
-      "Days": 57,
-      "Mean_Actual_MU": 89.149,
-      "MAE_MU": 2.172,
-      "RMSE_MU": 2.83,
-      "MAPE_Pct": 2.496
-    },
-    {
-      "Month": "May",
-      "Days": 31,
-      "Mean_Actual_MU": 100.561,
-      "MAE_MU": 2.485,
-      "RMSE_MU": 3.204,
-      "MAPE_Pct": 2.492
-    },
-    {
-      "Month": "Jun",
-      "Days": 30,
-      "Mean_Actual_MU": 122.213,
-      "MAE_MU": 2.462,
-      "RMSE_MU": 3.527,
-      "MAPE_Pct": 2.077
-    },
-    {
-      "Month": "Jul",
-      "Days": 31,
-      "Mean_Actual_MU": 126.184,
-      "MAE_MU": 3.69,
-      "RMSE_MU": 4.592,
-      "MAPE_Pct": 2.832
-    },
-    {
-      "Month": "Aug",
-      "Days": 31,
-      "Mean_Actual_MU": 131.474,
-      "MAE_MU": 3.162,
-      "RMSE_MU": 4.552,
-      "MAPE_Pct": 2.408
-    },
-    {
-      "Month": "Sep",
-      "Days": 30,
-      "Mean_Actual_MU": 123.723,
-      "MAE_MU": 3.433,
-      "RMSE_MU": 4.127,
-      "MAPE_Pct": 2.744
-    },
-    {
-      "Month": "Oct",
-      "Days": 31,
-      "Mean_Actual_MU": 90.49,
-      "MAE_MU": 2.139,
-      "RMSE_MU": 3.147,
-      "MAPE_Pct": 2.4
-    },
-    {
-      "Month": "Nov",
-      "Days": 30,
-      "Mean_Actual_MU": 70.48,
-      "MAE_MU": 1.705,
-      "RMSE_MU": 2.547,
-      "MAPE_Pct": 2.606
-    },
-    {
-      "Month": "Dec",
-      "Days": 31,
-      "Mean_Actual_MU": 71.335,
-      "MAE_MU": 1.272,
-      "RMSE_MU": 1.531,
-      "MAPE_Pct": 1.779
-    }
-  ],
-  "peak_alert_classification_top10pct": {
-    "per_state": [
-      {
-        "State": "Delhi",
-        "90th Percentile Threshold (MU)": 130.1,
-        "Actual Peak Days": 49,
-        "Predicted Peak Days": 40,
-        "Precision": 0.975,
-        "Recall": 0.796,
-        "F1-Score": 0.876,
-        "Accuracy": 0.977
+  "best_model_per_state": {
+    "Delhi": {
+      "best_model": "LightGBM",
+      "set_a_metrics": {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.9469,
+        "Val RMSE (MU)": 6.164,
+        "MAE (MU)": 4.4749,
+        "RMSE (MU)": 5.7781,
+        "R\u00b2": 0.9415,
+        "MAPE (%)": 4.8178
       },
-      {
-        "State": "Maharashtra",
-        "90th Percentile Threshold (MU)": 610.9,
-        "Actual Peak Days": 49,
-        "Predicted Peak Days": 42,
-        "Precision": 0.833,
-        "Recall": 0.714,
-        "F1-Score": 0.769,
-        "Accuracy": 0.957
+      "set_b_metrics": {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9855,
+        "Val RMSE (MU)": 3.2215,
+        "MAE (MU)": 2.2544,
+        "RMSE (MU)": 3.1113,
+        "R\u00b2": 0.983,
+        "MAPE (%)": 2.4724
       },
-      {
-        "State": "Kerala",
-        "90th Percentile Threshold (MU)": 99.3,
-        "Actual Peak Days": 49,
-        "Predicted Peak Days": 42,
-        "Precision": 0.952,
-        "Recall": 0.816,
-        "F1-Score": 0.879,
-        "Accuracy": 0.977
+      "highest_test_r2_set_a": {
+        "Model": "MLP (Neural Net)",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.9507,
+        "Val RMSE (MU)": 5.9379,
+        "MAE (MU)": 4.3821,
+        "RMSE (MU)": 5.7695,
+        "R\u00b2": 0.9416,
+        "MAPE (%)": 4.7394
       },
-      {
-        "State": "Uttar Pradesh",
-        "90th Percentile Threshold (MU)": 513.1,
-        "Actual Peak Days": 49,
-        "Predicted Peak Days": 38,
-        "Precision": 0.947,
-        "Recall": 0.735,
-        "F1-Score": 0.828,
-        "Accuracy": 0.969
-      },
-      {
-        "State": "OVERALL (All 4 Focus States)",
-        "90th Percentile Threshold (MU)": NaN,
-        "Actual Peak Days": 196,
-        "Predicted Peak Days": 162,
-        "Precision": 0.926,
-        "Recall": 0.765,
-        "F1-Score": 0.838,
-        "Accuracy": 0.97
+      "highest_test_r2_set_b": {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9855,
+        "Val RMSE (MU)": 3.2215,
+        "MAE (MU)": 2.2544,
+        "RMSE (MU)": 3.1113,
+        "R\u00b2": 0.983,
+        "MAPE (%)": 2.4724
       }
-    ],
-    "confusion_matrix_overall": [
-      [
-        1724,
-        12
-      ],
-      [
-        46,
-        150
-      ]
-    ],
-    "confusion_matrix_labels": [
-      "Normal Day (<90th %)",
-      "Peak Day (Top 10%)"
-    ]
+    },
+    "Maharashtra": {
+      "best_model": "LightGBM",
+      "set_a_metrics": {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.4963,
+        "Val RMSE (MU)": 41.0013,
+        "MAE (MU)": 22.8316,
+        "RMSE (MU)": 28.6883,
+        "R\u00b2": 0.5276,
+        "MAPE (%)": 4.1363
+      },
+      "set_b_metrics": {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9624,
+        "Val RMSE (MU)": 11.1967,
+        "MAE (MU)": 8.4885,
+        "RMSE (MU)": 11.7279,
+        "R\u00b2": 0.9211,
+        "MAPE (%)": 1.5396
+      },
+      "highest_test_r2_set_a": {
+        "Model": "Linear Regression",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.5347,
+        "Val RMSE (MU)": 39.4077,
+        "MAE (MU)": 20.875,
+        "RMSE (MU)": 26.1074,
+        "R\u00b2": 0.6088,
+        "MAPE (%)": 3.7553
+      },
+      "highest_test_r2_set_b": {
+        "Model": "Linear Regression",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9665,
+        "Val RMSE (MU)": 10.5797,
+        "MAE (MU)": 8.2076,
+        "RMSE (MU)": 11.2875,
+        "R\u00b2": 0.9269,
+        "MAPE (%)": 1.4864
+      }
+    },
+    "Kerala": {
+      "best_model": "LightGBM",
+      "set_a_metrics": {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.6849,
+        "Val RMSE (MU)": 3.3968,
+        "MAE (MU)": 2.3208,
+        "RMSE (MU)": 3.1596,
+        "R\u00b2": 0.8832,
+        "MAPE (%)": 2.6576
+      },
+      "set_b_metrics": {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9014,
+        "Val RMSE (MU)": 1.9002,
+        "MAE (MU)": 1.375,
+        "RMSE (MU)": 1.9313,
+        "R\u00b2": 0.9564,
+        "MAPE (%)": 1.5828
+      },
+      "highest_test_r2_set_a": {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.6849,
+        "Val RMSE (MU)": 3.3968,
+        "MAE (MU)": 2.3208,
+        "RMSE (MU)": 3.1596,
+        "R\u00b2": 0.8832,
+        "MAPE (%)": 2.6576
+      },
+      "highest_test_r2_set_b": {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9014,
+        "Val RMSE (MU)": 1.9002,
+        "MAE (MU)": 1.375,
+        "RMSE (MU)": 1.9313,
+        "R\u00b2": 0.9564,
+        "MAPE (%)": 1.5828
+      }
+    },
+    "Uttar Pradesh": {
+      "best_model": "LightGBM",
+      "set_a_metrics": {
+        "Model": "LightGBM",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.8102,
+        "Val RMSE (MU)": 35.8585,
+        "MAE (MU)": 33.7977,
+        "RMSE (MU)": 39.6413,
+        "R\u00b2": 0.7604,
+        "MAPE (%)": 9.1046
+      },
+      "set_b_metrics": {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9716,
+        "Val RMSE (MU)": 13.8662,
+        "MAE (MU)": 11.0972,
+        "RMSE (MU)": 15.1601,
+        "R\u00b2": 0.965,
+        "MAPE (%)": 2.8069
+      },
+      "highest_test_r2_set_a": {
+        "Model": "Random Forest",
+        "Feature Set": "Set A (Weather+Cal)",
+        "Val R\u00b2": 0.8103,
+        "Val RMSE (MU)": 35.8461,
+        "MAE (MU)": 32.1311,
+        "RMSE (MU)": 38.3153,
+        "R\u00b2": 0.7762,
+        "MAPE (%)": 8.6582
+      },
+      "highest_test_r2_set_b": {
+        "Model": "LightGBM",
+        "Feature Set": "Set B (Set A+Lags)",
+        "Val R\u00b2": 0.9716,
+        "Val RMSE (MU)": 13.8662,
+        "MAE (MU)": 11.0972,
+        "RMSE (MU)": 15.1601,
+        "R\u00b2": 0.965,
+        "MAPE (%)": 2.8069
+      }
+    }
   },
-  "national_all_states_test_results": [
+  "state_wise_r2_all_states": [
     {
       "State / UT": "Delhi",
       "Mean Test Demand (MU)": 91.7557,
@@ -1023,5 +1520,171 @@
       "Set B RMSE (MU)": 0.1853,
       "Set B MAPE (%)": 5.3243
     }
-  ]
+  ],
+  "delhi_monthly_test_errors": [
+    {
+      "Month": "Jan",
+      "Days": 62,
+      "Mean_Actual_MU": 84.082,
+      "MAE_MU": 2.314,
+      "RMSE_MU": 2.791,
+      "MAPE_Pct": 2.736
+    },
+    {
+      "Month": "Feb",
+      "Days": 57,
+      "Mean_Actual_MU": 71.57,
+      "MAE_MU": 1.227,
+      "RMSE_MU": 1.559,
+      "MAPE_Pct": 1.726
+    },
+    {
+      "Month": "Mar",
+      "Days": 62,
+      "Mean_Actual_MU": 69.839,
+      "MAE_MU": 2.072,
+      "RMSE_MU": 2.909,
+      "MAPE_Pct": 3.094
+    },
+    {
+      "Month": "Apr",
+      "Days": 57,
+      "Mean_Actual_MU": 89.149,
+      "MAE_MU": 2.172,
+      "RMSE_MU": 2.83,
+      "MAPE_Pct": 2.496
+    },
+    {
+      "Month": "May",
+      "Days": 31,
+      "Mean_Actual_MU": 100.561,
+      "MAE_MU": 2.485,
+      "RMSE_MU": 3.204,
+      "MAPE_Pct": 2.492
+    },
+    {
+      "Month": "Jun",
+      "Days": 30,
+      "Mean_Actual_MU": 122.213,
+      "MAE_MU": 2.462,
+      "RMSE_MU": 3.527,
+      "MAPE_Pct": 2.077
+    },
+    {
+      "Month": "Jul",
+      "Days": 31,
+      "Mean_Actual_MU": 126.184,
+      "MAE_MU": 3.69,
+      "RMSE_MU": 4.592,
+      "MAPE_Pct": 2.832
+    },
+    {
+      "Month": "Aug",
+      "Days": 31,
+      "Mean_Actual_MU": 131.474,
+      "MAE_MU": 3.162,
+      "RMSE_MU": 4.552,
+      "MAPE_Pct": 2.408
+    },
+    {
+      "Month": "Sep",
+      "Days": 30,
+      "Mean_Actual_MU": 123.723,
+      "MAE_MU": 3.433,
+      "RMSE_MU": 4.127,
+      "MAPE_Pct": 2.744
+    },
+    {
+      "Month": "Oct",
+      "Days": 31,
+      "Mean_Actual_MU": 90.49,
+      "MAE_MU": 2.139,
+      "RMSE_MU": 3.147,
+      "MAPE_Pct": 2.4
+    },
+    {
+      "Month": "Nov",
+      "Days": 30,
+      "Mean_Actual_MU": 70.48,
+      "MAE_MU": 1.705,
+      "RMSE_MU": 2.547,
+      "MAPE_Pct": 2.606
+    },
+    {
+      "Month": "Dec",
+      "Days": 31,
+      "Mean_Actual_MU": 71.335,
+      "MAE_MU": 1.272,
+      "RMSE_MU": 1.531,
+      "MAPE_Pct": 1.779
+    }
+  ],
+  "peak_alert_classification_top10pct": {
+    "per_state": [
+      {
+        "State": "Delhi",
+        "90th Percentile Threshold (MU)": 130.1,
+        "Actual Peak Days": 49,
+        "Predicted Peak Days": 40,
+        "Precision": 0.975,
+        "Recall": 0.796,
+        "F1-Score": 0.876,
+        "Accuracy": 0.977
+      },
+      {
+        "State": "Maharashtra",
+        "90th Percentile Threshold (MU)": 610.9,
+        "Actual Peak Days": 49,
+        "Predicted Peak Days": 42,
+        "Precision": 0.833,
+        "Recall": 0.714,
+        "F1-Score": 0.769,
+        "Accuracy": 0.957
+      },
+      {
+        "State": "Kerala",
+        "90th Percentile Threshold (MU)": 99.3,
+        "Actual Peak Days": 49,
+        "Predicted Peak Days": 42,
+        "Precision": 0.952,
+        "Recall": 0.816,
+        "F1-Score": 0.879,
+        "Accuracy": 0.977
+      },
+      {
+        "State": "Uttar Pradesh",
+        "90th Percentile Threshold (MU)": 513.1,
+        "Actual Peak Days": 49,
+        "Predicted Peak Days": 38,
+        "Precision": 0.947,
+        "Recall": 0.735,
+        "F1-Score": 0.828,
+        "Accuracy": 0.969
+      },
+      {
+        "State": "OVERALL (All 4 Focus States)",
+        "90th Percentile Threshold (MU)": NaN,
+        "Actual Peak Days": 196,
+        "Predicted Peak Days": 162,
+        "Precision": 0.926,
+        "Recall": 0.765,
+        "F1-Score": 0.838,
+        "Accuracy": 0.97
+      }
+    ],
+    "confusion_matrix_overall": [
+      [
+        1724,
+        12
+      ],
+      [
+        46,
+        150
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "Normal Day (<90th %)",
+      "Peak Day (Top 10%)"
+    ]
+  }
 }
